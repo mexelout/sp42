@@ -1,0 +1,10 @@
+#pragma once
+#include <d3dx9.h>
+
+struct CUSTOMVERTEX {
+	D3DXVECTOR3 pos;
+	D3DXVECTOR3 nor;
+	DWORD color;
+};
+
+#define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_DIFFUSE)
