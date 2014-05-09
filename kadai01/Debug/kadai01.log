@@ -1,28 +1,30 @@
-﻿2014/04/25 14:27:16 にビルドを開始しました。
-ノード 2 上のプロジェクト "C:\Users\元和\Documents\Visual Studio 2010\Projects\SP42\kadai01\kadai01.vcxproj" (build ターゲット)。
-InitializeBuildStatus:
-  "AlwaysCreate" が指定されたため "Debug\kadai01.unsuccessfulbuild" を作成しています。
-ClCompile:
-  c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
-  main.cpp
-ManifestResourceCompile:
-  すべての出力が最新のものです。
-Link:
-  c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\元和\Documents\Visual Studio 2010\Projects\SP42\kadai01\Debug\kadai01.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\kadai01.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\元和\Documents\Visual Studio 2010\Projects\SP42\kadai01\Debug\kadai01.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\元和\Documents\Visual Studio 2010\Projects\SP42\kadai01\Debug\kadai01.lib" /MACHINE:X86 Debug\kadai01.exe.embed.manifest.res
-  Debug\main.obj
-  Debug\Model.obj
-  Debug\ShaderDevise.obj
-Manifest:
-  C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\kadai01.exe.embed.manifest" /manifest Debug\kadai01.exe.intermediate.manifest
-  すべての出力が最新のものです。
-LinkEmbedManifest:
-  すべての出力が最新のものです。
-  kadai01.vcxproj -> C:\Users\元和\Documents\Visual Studio 2010\Projects\SP42\kadai01\Debug\kadai01.exe
-FinalizeBuildStatus:
-  ファイル "Debug\kadai01.unsuccessfulbuild" を削除しています。
-  "Debug\kadai01.lastbuildstate" のタッチ タスクを実行しています。
-プロジェクト "C:\Users\元和\Documents\Visual Studio 2010\Projects\SP42\kadai01\kadai01.vcxproj" (build ターゲット) のビルドが完了しました。
+﻿5/9/2014 3:21:25 PM にビルドを開始しました。
+     1>ノード 2 上のプロジェクト "C:\Users\mexel_000\Documents\Visual Studio 2010\Projects\sp42\kadai01\kadai01.vcxproj" (build ターゲット)。
+     1>InitializeBuildStatus:
+         "AlwaysCreate" が指定されたため "Debug\kadai01.unsuccessfulbuild" を作成しています。
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Plane.cpp
+         Plane.cpp
+       ManifestResourceCompile:
+         すべての出力が最新のものです。
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\mexel_000\Documents\Visual Studio 2010\Projects\sp42\kadai01\Debug\kadai01.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\kadai01.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\mexel_000\Documents\Visual Studio 2010\Projects\sp42\kadai01\Debug\kadai01.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\mexel_000\Documents\Visual Studio 2010\Projects\sp42\kadai01\Debug\kadai01.lib" /MACHINE:X86 Debug\kadai01.exe.embed.manifest.res
+         Debug\Camera.obj
+         Debug\main.obj
+         Debug\Model.obj
+         Debug\Plane.obj
+         Debug\ShaderDevise.obj
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\kadai01.exe.embed.manifest" /manifest Debug\kadai01.exe.intermediate.manifest
+         すべての出力が最新のものです。
+       LinkEmbedManifest:
+         すべての出力が最新のものです。
+         kadai01.vcxproj -> C:\Users\mexel_000\Documents\Visual Studio 2010\Projects\sp42\kadai01\Debug\kadai01.exe
+       FinalizeBuildStatus:
+         ファイル "Debug\kadai01.unsuccessfulbuild" を削除しています。
+         "Debug\kadai01.lastbuildstate" のタッチ タスクを実行しています。
+     1>プロジェクト "C:\Users\mexel_000\Documents\Visual Studio 2010\Projects\sp42\kadai01\kadai01.vcxproj" (build ターゲット) のビルドが完了しました。
 
 ビルドに成功しました。
 
-経過時間 00:00:03.45
+経過時間 00:00:00.98

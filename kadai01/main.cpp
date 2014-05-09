@@ -8,7 +8,9 @@
 #include <d3dx9.h>
 #include "ShaderDevise.h"
 #include "Vertex.h"
+#include "Camera.h"
 #include "Model.h"
+#include "Plane.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	switch(msg){
@@ -42,7 +44,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	RECT clientRect = {0, 0, w, h};
 	AdjustWindowRect( &clientRect, WS_OVERLAPPEDWINDOW, FALSE );
 
-	if(!(hWnd = CreateWindow("cls_name", "kadai01", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0,
+	if(!(hWnd = CreateWindow("cls_name", "shader program", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0,
 		clientRect.right - clientRect.left, clientRect.bottom - clientRect.top,
 		NULL, NULL, hInstance, NULL)))
 		return 0;
@@ -79,6 +81,19 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 
 	sd->device()->SetRenderState(D3DRS_CULLMODE , D3DCULL_CCW);
 	sd->device()->SetRenderState(D3DRS_LIGHTING , FALSE);
+	sd->device()->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	sd->device()->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA );
+	sd->device()->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	sd->device()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+	sd->device()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );  
+ 
+	sd->device()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE );
+ 
+	sd->device()->SetTextureStageState( 0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE );
+	sd->device()->SetTextureStageState( 0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE );
+
+	sd->device()->SetTextureStageState( 0, D3DTSS_ALPHAOP, D3DTOP_MODULATE );
+
 	sd->device()->SetFVF(D3DFVF_CUSTOMVERTEX);
 
 	LPDIRECT3DVERTEXSHADER9 vertex_shader;
@@ -95,12 +110,18 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 
 	ShowWindow(hWnd, nCmdShow);
 
+	Plane* plane = (new Plane())->init(sd->device());
+	
+	Camera::init();
+
 	// メッセージ ループ
 	do{
 		if( PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) ) {
 			TranslateMessage( &msg );
 			DispatchMessage( &msg );
 		} else{
+
+			plane->update();
 
 			Ang += 0.03f;
 			// Direct3Dの処理
@@ -111,27 +132,19 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 			RECT r={0, 0, 0, 0};
 			pD3DFont->DrawText(NULL, _T("Hello World !"), -1, &r, DT_LEFT | DT_SINGLELINE | DT_NOCLIP, 0xffffffff);
 
-			D3DXMATRIX world, view, projection;
+			D3DXMATRIX world;
+			const D3DXMATRIX& view = Camera::view();
+			const D3DXMATRIX& projection = Camera::projection();
 			D3DXMATRIX worldViewProjection;
 
 			D3DXMatrixIdentity(&world);
-			D3DXMATRIX rot;
+			D3DXMATRIX translate, rot;
 			D3DXMatrixRotationX(&rot, Ang);
-			D3DXMatrixMultiply(&world, &world, &rot);
+			world *= rot;
 			D3DXMatrixRotationY(&rot, Ang);
-			D3DXMatrixMultiply(&world, &world, &rot);
-
-			// ビュー変換
-			// 視点は原点固定ですが、カメラの位置は適当です
-			D3DXMatrixLookAtLH(
-				&view,
-				&D3DXVECTOR3(3, 3, 3),
-				&D3DXVECTOR3(0, 0, 0),
-				&D3DXVECTOR3(0, 1, 0)
-			);
-
-			// 射影変換
-			D3DXMatrixPerspectiveFovLH(&projection, D3DXToRadian(45), 640.0f/480.0f, 1.0f, 10000.0f);
+			world *= rot;
+			D3DXMatrixTranslation(&translate, 0, 2, 0);
+			world *= translate;
 
 			worldViewProjection = world * view * projection;
 			vs_constant_table->SetMatrix(sd->device(), "g_world_view_projection", &worldViewProjection);
@@ -144,6 +157,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 			model->mesh()->DrawSubset(0);
 
 			sd->device()->SetVertexShader(NULL);
+
+			plane->draw(sd->device());
+
 			sd->device()->EndScene();
 			sd->device()->Present( NULL, NULL, NULL, NULL );
 		}
@@ -154,6 +170,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	code->Release();
 	vs_constant_table->Release();
 	model->release();
+	plane->release();
 	pD3DFont->Release();
 	sd->release();
 

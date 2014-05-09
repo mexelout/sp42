@@ -82,12 +82,16 @@
     <None Include="shader.fx" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Plane.cpp" />
     <ClCompile Include="ShaderDevise.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Plane.h" />
     <ClInclude Include="ShaderDevise.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
