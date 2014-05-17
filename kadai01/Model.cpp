@@ -17,13 +17,15 @@ Model* Model::init(LPDIRECT3DDEVICE9 device, std::string filename) {
 		0,
 		device,
 		NULL,
+		&_materials,
 		NULL,
-		NULL,
-		NULL,
+		(DWORD*)&_num_materials,
 		&_mesh);
 	_num_face = (int)_mesh->GetNumFaces();
 	_mesh->GetVertexBuffer(&_vertexes);
 	_mesh->GetIndexBuffer(&_indices);
+
+
 	return this;
 }
 
@@ -47,4 +49,12 @@ void Model::release() {
 	if(_vertexes) _vertexes->Release();
 	if(_indices) _indices->Release();
 	if(_mesh) _mesh->Release();
+}
+
+LPD3DXBUFFER Model::materials() {
+	return _materials;
+}
+
+int Model::numMaterials() {
+	return _num_materials;
 }

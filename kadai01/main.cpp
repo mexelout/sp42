@@ -9,7 +9,7 @@
 #include "ShaderDevise.h"
 #include "Vertex.h"
 #include "Camera.h"
-#include "Model.h"
+#include "ToonModel.h"
 #include "Plane.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam){
@@ -52,21 +52,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	// Direct3Dの初期化
 	ShaderDevise* sd = (new ShaderDevise())->init(w, h, hWnd);
 
-	LPD3DXBUFFER code;
-	LPD3DXBUFFER error;
-	LPD3DXCONSTANTTABLE vs_constant_table;
-
-	D3DXCompileShaderFromFile("shader.fx", NULL, NULL,
-								"vertexShader3D", "vs_2_0", 0,
-								&code, &error, &vs_constant_table);
-
-	if(error) {
-		OutputDebugString((LPCSTR)error->GetBufferPointer());
-		sd->release();
-		MessageBox(hWnd, "shader error.\ncheck output string message.", "error", MB_OK);
-		return 0;
-	}
-
 	// フォントの生成
 	int fontsize = 24;
 	D3DXFONT_DESC lf = {fontsize, 0, 0, 1, 0, SHIFTJIS_CHARSET, OUT_TT_ONLY_PRECIS,
@@ -79,40 +64,23 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 		return 0;
 	}
 
-	sd->device()->SetRenderState(D3DRS_CULLMODE , D3DCULL_CCW);
-	sd->device()->SetRenderState(D3DRS_LIGHTING , FALSE);
-	sd->device()->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	sd->device()->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA );
-	sd->device()->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	sd->device()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-	sd->device()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );  
- 
-	sd->device()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE );
- 
-	sd->device()->SetTextureStageState( 0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE );
-	sd->device()->SetTextureStageState( 0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE );
-
-	sd->device()->SetTextureStageState( 0, D3DTSS_ALPHAOP, D3DTOP_MODULATE );
-
 	sd->device()->SetFVF(D3DFVF_CUSTOMVERTEX);
-
-	LPDIRECT3DVERTEXSHADER9 vertex_shader;
-	sd->device()->CreateVertexShader((DWORD*)code->GetBufferPointer(), &vertex_shader);
 
 	FLOAT Ang = 0.0f;   // 回転角度
 
 	D3DXVECTOR4 light_dir(0, 0.4f, -1, 0);
 	D3DXVec4Normalize(&light_dir, &light_dir);
 
-	D3DXVECTOR4 ambient_color(0.8f, 0.8f, 0.8f, 1);
+	D3DXVECTOR4 ambient_color(0.1f, 0.1f, 0.1f, 1);
 
-	Model* model = (new Model())->init(sd->device(), "models/sword001.x");
 
 	ShowWindow(hWnd, nCmdShow);
 
 	Plane* plane = (new Plane())->init(sd->device());
 	
 	Camera::init();
+
+	ToonModel* toon_model = (new ToonModel())->init();
 
 	// メッセージ ループ
 	do{
@@ -132,44 +100,15 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 			RECT r={0, 0, 0, 0};
 			pD3DFont->DrawText(NULL, _T("Hello World !"), -1, &r, DT_LEFT | DT_SINGLELINE | DT_NOCLIP, 0xffffffff);
 
-			D3DXMATRIX world;
-			const D3DXMATRIX& view = Camera::view();
-			const D3DXMATRIX& projection = Camera::projection();
-			D3DXMATRIX worldViewProjection;
-
-			D3DXMatrixIdentity(&world);
-			D3DXMATRIX translate, rot;
-			D3DXMatrixRotationX(&rot, Ang);
-			world *= rot;
-			D3DXMatrixRotationY(&rot, Ang);
-			world *= rot;
-			D3DXMatrixTranslation(&translate, 0, 2, 0);
-			world *= translate;
-
-			worldViewProjection = world * view * projection;
-			vs_constant_table->SetMatrix(sd->device(), "g_world_view_projection", &worldViewProjection);
-			vs_constant_table->SetVector(sd->device(), "g_light_direction", &light_dir);
-			vs_constant_table->SetMatrix(sd->device(), "g_world", &world);
-			vs_constant_table->SetVector(sd->device(), "g_ambient", &ambient_color);
-			
-			sd->device()->SetVertexShader(vertex_shader);
-
-			model->mesh()->DrawSubset(0);
-
-			sd->device()->SetVertexShader(NULL);
-
 			plane->draw(sd->device());
+			toon_model->draw();
 
 			sd->device()->EndScene();
 			sd->device()->Present( NULL, NULL, NULL, NULL );
 		}
 	} while(msg.message != WM_QUIT);
 
-	vertex_shader->Release();
-
-	code->Release();
-	vs_constant_table->Release();
-	model->release();
+	toon_model->release();
 	plane->release();
 	pD3DFont->Release();
 	sd->release();

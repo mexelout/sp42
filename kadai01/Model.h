@@ -14,12 +14,16 @@ public:
 	LPDIRECT3DVERTEXBUFFER9 vertexes();
 	LPDIRECT3DINDEXBUFFER9 indices();
 	LPD3DXMESH mesh();
+	LPD3DXBUFFER materials();
+	int numMaterials();
 	int numFace();
 	void release();
 private:
 	LPDIRECT3DVERTEXBUFFER9 _vertexes;
 	LPDIRECT3DINDEXBUFFER9 _indices;
 	LPD3DXMESH _mesh;
+	LPD3DXBUFFER _materials;
+	int _num_materials;
 	int _num_vertex;
 	int _num_face;
 };

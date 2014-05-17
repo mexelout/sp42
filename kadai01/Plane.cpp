@@ -68,9 +68,9 @@ Plane* Plane::init(LPDIRECT3DDEVICE9 device) {
 	D3DXCreateTextureFromFile(device, "textures/texture.png", &texture);
 
 	angle = (D3DX_PI / 180.0f * 2);
-	D3DXMATRIX rot;
-	D3DXMatrixRotationAxis(&rot, &D3DXVECTOR3(1, 0, 0), (D3DX_PI / 180.0f * -90));
-	world *= rot;
+	//D3DXMATRIX rot;
+	//D3DXMatrixRotationAxis(&rot, &D3DXVECTOR3(1, 0, 0), (D3DX_PI / 180.0f * -90));
+	//world *= rot;
 
 	return this;
 }
@@ -90,6 +90,9 @@ void Plane::draw(LPDIRECT3DDEVICE9 device) {
 	D3DXMATRIX world_view_projection = world * view * projection;
 	_vs_constant_table->SetMatrix(device, "g_world_view_projection", &world_view_projection);
 	_vs_constant_table->SetMatrix(device, "g_world", &world);
+	D3DXVECTOR4 mat_dif(1, 1, 1, 1);
+	_vs_constant_table->SetVector(device, "g_material_diffuse", &mat_dif);
+
 	device->SetTexture(0, texture);
 	device->SetStreamSource(0, vbuf, 0, sizeof(CUSTOMVERTEX));
 	device->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
