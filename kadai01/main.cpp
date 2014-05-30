@@ -90,15 +90,24 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 		} else{
 
 			plane->update();
+			toon_model->update();
 
-			Ang += 0.03f;
+			toon_model->calcGround(plane->vertices());
+			D3DXVECTOR3 pos = toon_model->pos();
+
+			pos = toon_model->pos();
+			plane->setPlayerPosition(pos - D3DXVECTOR3(-1, 0, -1));
+			Camera::setAt(pos);
+			Camera::setEye(pos + D3DXVECTOR3(5, 5, 5));
+
+			//Ang += 0.03f;
 			// Direct3D‚Ìˆ—
 			sd->device()->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0,0,255), 1.0f, 0 );
 			sd->device()->BeginScene();
 
 			// •`‰æ
-			RECT r={0, 0, 0, 0};
-			pD3DFont->DrawText(NULL, _T("Hello World !"), -1, &r, DT_LEFT | DT_SINGLELINE | DT_NOCLIP, 0xffffffff);
+			//RECT r={0, 0, 0, 0};
+			//pD3DFont->DrawText(NULL, _T("Hello World !"), -1, &r, DT_LEFT | DT_SINGLELINE | DT_NOCLIP, 0xffffffff);
 
 			plane->draw(sd->device());
 			toon_model->draw();

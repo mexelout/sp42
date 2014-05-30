@@ -9,8 +9,10 @@ public:
 	static void init();
 	static const D3DXMATRIX& view();
 	static const D3DXMATRIX& projection();
+	static void setEye(D3DXVECTOR3 eye);
+	static void setAt(D3DXVECTOR3 at);
 private:
-	static D3DXVECTOR3 eye, at, up;
+	static D3DXVECTOR3 _eye, _at, _up;
 	static D3DXMATRIX _view, _projection;
 };
 

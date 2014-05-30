@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-D3DXVECTOR3 Camera::eye(3, 3, 3), Camera::at(0, 0, 0), Camera::up(0, 1, 0);
+D3DXVECTOR3 Camera::_eye(3, 3, 3), Camera::_at(0, 0, 0), Camera::_up(0, 1, 0);
 D3DXMATRIX Camera::_view, Camera::_projection;
 
 Camera::Camera(void) {
@@ -12,9 +12,9 @@ Camera::~Camera(void) {
 void Camera::init() {
 	D3DXMatrixLookAtLH(
 		&_view,
-		&eye,
-		&at,
-		&up
+		&_eye,
+		&_at,
+		&_up
 	);
 
 	// ŽË‰e•ÏŠ·
@@ -28,9 +28,9 @@ const D3DXMATRIX& Camera::view() {
 
 	D3DXMatrixLookAtLH(
 		&_view,
-		&eye,
-		&at,
-		&up
+		&_eye,
+		&_at,
+		&_up
 	);
 
 	return _view;
@@ -38,3 +38,12 @@ const D3DXMATRIX& Camera::view() {
 const D3DXMATRIX& Camera::projection() {
 	return _projection;
 }
+
+void Camera::setEye(D3DXVECTOR3 eye) {
+	_eye = eye;
+}
+
+void Camera::setAt(D3DXVECTOR3 at) {
+	_at = at;
+}
+
