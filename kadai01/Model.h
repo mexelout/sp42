@@ -18,6 +18,7 @@ public:
 	int numMaterials();
 	int numFace();
 	void release();
+	void drawVolumeShadow();
 private:
 	LPDIRECT3DVERTEXBUFFER9 _vertexes;
 	LPDIRECT3DINDEXBUFFER9 _indices;

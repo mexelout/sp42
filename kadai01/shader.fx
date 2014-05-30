@@ -62,6 +62,19 @@ void vertexShaderLine(in float4 inPosition: POSITION, in float4 inNormal: NORMAL
 	outTex.y = 0.5f;
 }
 
+void vertexShaderShadowVol(in float4 inPosition: POSITION, in float4 inNormal: NORMAL, out float4 outPosition: POSITION, in float2 inTex : TEXCOORD0, out float2 outTex : TEXCOORD0) {
+/*
+	outTex = inTex;
+	inNormal.w = 0;
+	float4 normal = mul(inNormal, g_world);
+	float d = dot(normal, g_light_direction);
+	if(d > 0.0f)
+		inPosition += g_light_direction * 10.0f;
+	viewPosition = mul(worldPosition, g_view);
+	outPosition = mul(viewPosition, g_projection);
+	*/
+}
+
 void pixelShader3D(in float4 inDiff: COLOR, out float4 outDiff: COLOR) {
 	outDiff = inDiff;
 }
@@ -69,3 +82,5 @@ void pixelShader3D(in float4 inDiff: COLOR, out float4 outDiff: COLOR) {
 void pixelShaderTexture(in float2 inTex : TEXCOORD0, in float4 inDiff : COLOR, out float4 outDiff : COLOR) {
 	outDiff = tex2D(g_tex_sampler, inTex) * inDiff;
 };
+
+

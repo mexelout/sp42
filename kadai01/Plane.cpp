@@ -89,6 +89,9 @@ Plane* Plane::init(LPDIRECT3DDEVICE9 device) {
 	device->CreatePixelShader((DWORD*)code->GetBufferPointer(), &_ps);
 	code->Release();
 
+	texture = NULL;
+	white = NULL;
+
 	D3DXCreateTextureFromFile(device, "textures/shadow.png", &texture);
 	D3DXCreateTextureFromFile(device, "textures/white.png", &white);
 
@@ -153,6 +156,7 @@ void Plane::draw(LPDIRECT3DDEVICE9 device) {
 	device->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
 	device->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
 	device->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
+	
 	device->SetTexture(0, NULL);
 	device->SetVertexShader(NULL);
 	device->SetPixelShader(NULL);
@@ -166,8 +170,8 @@ void Plane::release() {
 	_vs_shadow->Release();
 	_ps->Release();
 	_ps_constant_table->Release();
-	texture->Release();
-	white->Release();
+	if(texture) texture->Release();
+	if(white) white->Release();
 	delete this;
 }
 

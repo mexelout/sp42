@@ -58,3 +58,9 @@ LPD3DXBUFFER Model::materials() {
 int Model::numMaterials() {
 	return _num_materials;
 }
+
+void drawVolumeShadow() {
+	
+}
+
+

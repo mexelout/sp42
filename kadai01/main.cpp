@@ -11,10 +11,12 @@
 #include "Camera.h"
 #include "ToonModel.h"
 #include "Plane.h"
+#include "Input.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	switch(msg){
 		case WM_CREATE:
+
 			return 0;
 		case WM_KEYDOWN:
 			if(wParam == VK_ESCAPE)
@@ -52,6 +54,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	// Direct3Dの初期化
 	ShaderDevise* sd = (new ShaderDevise())->init(w, h, hWnd);
 
+	Input::init(hInstance, hWnd);
+
 	// フォントの生成
 	int fontsize = 24;
 	D3DXFONT_DESC lf = {fontsize, 0, 0, 1, 0, SHIFTJIS_CHARSET, OUT_TT_ONLY_PRECIS,
@@ -65,6 +69,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	}
 
 	sd->device()->SetFVF(D3DFVF_CUSTOMVERTEX);
+	LPDIRECT3DDEVICE9 device = sd->device();
 
 	FLOAT Ang = 0.0f;   // 回転角度
 
@@ -81,6 +86,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	Camera::init();
 
 	ToonModel* toon_model = (new ToonModel())->init();
+	Model* model = (new Model)->init(device, "models/cylinder.x");
 
 	// メッセージ ループ
 	do{
@@ -88,6 +94,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 			TranslateMessage( &msg );
 			DispatchMessage( &msg );
 		} else{
+
+			Input::update();
 
 			plane->update();
 			toon_model->update();
@@ -110,6 +118,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 			//pD3DFont->DrawText(NULL, _T("Hello World !"), -1, &r, DT_LEFT | DT_SINGLELINE | DT_NOCLIP, 0xffffffff);
 
 			plane->draw(sd->device());
+
+			/**/
+			
+			/**/
+
 			toon_model->draw();
 
 			sd->device()->EndScene();
@@ -117,9 +130,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 		}
 	} while(msg.message != WM_QUIT);
 
+	model->release();
 	toon_model->release();
 	plane->release();
 	pD3DFont->Release();
+	Input::release();
 	sd->release();
 
 	return 0;
