@@ -14,22 +14,18 @@ public:
 	typedef enum {
 		Press,
 		Trigger,
-		Release
+		Release,
+		Max
 	}State;
 	Input(void);
 	~Input(void);
 	static void init(HINSTANCE inst, HWND hwnd);
 	static void update();
 	static void release();
-	static BOOL isKey(BYTE dik, State state);
 protected:
 	static LPDIRECTINPUT8 d_input;
-	static LPDIRECTINPUTDEVICE8 d_device;
 
-	// キーボードに必要な変数
-	static BYTE press_key_state[KEY_NUM];
-	static BYTE trigger_key_state[KEY_NUM];
-	static BYTE release_key_state[KEY_NUM];
-	static BYTE repeat_key_state[KEY_NUM];
 };
 
+#include "InputKeyboard.h"
+#include "InputMouse.h"

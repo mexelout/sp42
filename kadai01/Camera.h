@@ -11,6 +11,9 @@ public:
 	static const D3DXMATRIX& projection();
 	static void setEye(D3DXVECTOR3 eye);
 	static void setAt(D3DXVECTOR3 at);
+	static D3DXVECTOR3 eye();
+	static D3DXVECTOR3 at();
+	static D3DXVECTOR3 dir();
 private:
 	static D3DXVECTOR3 _eye, _at, _up;
 	static D3DXMATRIX _view, _projection;

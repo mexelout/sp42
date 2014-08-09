@@ -1,22 +1,31 @@
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
+#pragma comment(lib, "winmm.lib")
+
 
 #include <windows.h>
 #include <tchar.h>
+#include <time.h>
 #include <d3d9.h>
 #include <d3dx9.h>
+#include "Common.h"
 #include "ShaderDevise.h"
 #include "Vertex.h"
 #include "Camera.h"
-#include "ToonModel.h"
+#include "Model.h"
 #include "Plane.h"
 #include "Input.h"
+#include "DepthShadowScene.h"
+#include "BlurScene.h"
+#include "MultiTexScene.h"
+#include "ToonScene.h"
+#include "MotionBlurScene.h"
+#include "FogScene.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	switch(msg){
 		case WM_CREATE:
-
 			return 0;
 		case WM_KEYDOWN:
 			if(wParam == VK_ESCAPE)
@@ -34,6 +43,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam){
 }
 
 int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
+
+#if defined(DEBUG) | defined(_DEBUG)
+	_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
+	//_CrtSetBreakAlloc(138);
+#endif
+	srand((unsigned)time(0));
+
 	// アプリケーションの初期化
 	MSG msg; HWND hWnd;
 	WNDCLASSEX wcex ={sizeof(WNDCLASSEX), CS_HREDRAW | CS_VREDRAW, WndProc, 0, 0, hInstance, NULL, LoadCursor(NULL , IDC_ARROW),
@@ -42,11 +58,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	if(!RegisterClassEx(&wcex))
 		return 0;
 
-	int w = 640, h = 480;
+	int w = (int)Common::window_width, h = (int)Common::window_height;
 	RECT clientRect = {0, 0, w, h};
 	AdjustWindowRect( &clientRect, WS_OVERLAPPEDWINDOW, FALSE );
 
-	if(!(hWnd = CreateWindow("cls_name", "shader program", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0,
+	if(!(hWnd = CreateWindow("cls_name", "SP42", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0,
 		clientRect.right - clientRect.left, clientRect.bottom - clientRect.top,
 		NULL, NULL, hInstance, NULL)))
 		return 0;
@@ -54,88 +70,31 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	// Direct3Dの初期化
 	ShaderDevise* sd = (new ShaderDevise())->init(w, h, hWnd);
 
+	ShowWindow(hWnd, nCmdShow);
+	Camera::init();
 	Input::init(hInstance, hWnd);
 
-	// フォントの生成
-	int fontsize = 24;
-	D3DXFONT_DESC lf = {fontsize, 0, 0, 1, 0, SHIFTJIS_CHARSET, OUT_TT_ONLY_PRECIS,
-	PROOF_QUALITY, FIXED_PITCH | FF_MODERN, _T("ＭＳ ゴシック")};
+	Scene* s = (new FogScene)->init();
 
-	// ID3DXFontコンポーネント生成
-	LPD3DXFONT pD3DFont;
-	if(FAILED(D3DXCreateFontIndirect(sd->device(), &lf, &pD3DFont))){
-		sd->release();
-		return 0;
-	}
+	if(s)
+		// メッセージ ループ
+		do{
+			if( PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) ) {
+				TranslateMessage( &msg );
+				DispatchMessage( &msg );
+			} else{
+				Input::update();
 
-	sd->device()->SetFVF(D3DFVF_CUSTOMVERTEX);
-	LPDIRECT3DDEVICE9 device = sd->device();
-
-	FLOAT Ang = 0.0f;   // 回転角度
-
-	D3DXVECTOR4 light_dir(0, 0.4f, -1, 0);
-	D3DXVec4Normalize(&light_dir, &light_dir);
-
-	D3DXVECTOR4 ambient_color(0.1f, 0.1f, 0.1f, 1);
+				s->update();
 
 
-	ShowWindow(hWnd, nCmdShow);
+				s->draw();
+			}
+		} while(msg.message != WM_QUIT);
 
-	Plane* plane = (new Plane())->init(sd->device());
-	
-	Camera::init();
-
-	ToonModel* toon_model = (new ToonModel())->init();
-	Model* model = (new Model)->init(device, "models/cylinder.x");
-
-	// メッセージ ループ
-	do{
-		if( PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) ) {
-			TranslateMessage( &msg );
-			DispatchMessage( &msg );
-		} else{
-
-			Input::update();
-
-			plane->update();
-			toon_model->update();
-
-			toon_model->calcGround(plane->vertices());
-			D3DXVECTOR3 pos = toon_model->pos();
-
-			pos = toon_model->pos();
-			plane->setPlayerPosition(pos - D3DXVECTOR3(-1, 0, -1));
-			Camera::setAt(pos);
-			Camera::setEye(pos + D3DXVECTOR3(5, 5, 5));
-
-			//Ang += 0.03f;
-			// Direct3Dの処理
-			sd->device()->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0,0,255), 1.0f, 0 );
-			sd->device()->BeginScene();
-
-			// 描画
-			//RECT r={0, 0, 0, 0};
-			//pD3DFont->DrawText(NULL, _T("Hello World !"), -1, &r, DT_LEFT | DT_SINGLELINE | DT_NOCLIP, 0xffffffff);
-
-			plane->draw(sd->device());
-
-			/**/
-			
-			/**/
-
-			toon_model->draw();
-
-			sd->device()->EndScene();
-			sd->device()->Present( NULL, NULL, NULL, NULL );
-		}
-	} while(msg.message != WM_QUIT);
-
-	model->release();
-	toon_model->release();
-	plane->release();
-	pD3DFont->Release();
+	SAFE_RELEASE_DELETE(s);
 	Input::release();
-	sd->release();
+	SAFE_RELEASE_DELETE(sd);
 
 	return 0;
 }

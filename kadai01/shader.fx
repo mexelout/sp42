@@ -3,8 +3,10 @@ float4 g_light_direction;
 float4x4 g_world;
 float4 g_ambient;
 float4 g_material_diffuse;
+float4x4 g_light_matrix;
 
 float4 g_player_position;
+
 
 sampler g_tex_sampler;
 
@@ -13,18 +15,18 @@ void vertexShader3D(in float4 inPosition: POSITION, in float4 inDiff: COLOR0, in
 	inNormal.w = 0;
 	float4 normal = mul(inNormal, g_world);
 	// îÕàÕ 0Å`1
-	outDiffuse = min(max(-dot(g_light_direction, normal) + g_ambient, 0), 1);
+	outDiffuse = -dot(g_light_direction, normal) + g_ambient;
 	outDiffuse.a = 1.0f;
 	outDiffuse *= inDiff;
 	outDiffuse *= g_material_diffuse;
 }
 
-void vertexShaderTexture(in float4 inPosition: POSITION, in float4 inNormal: NORMAL, in float4 inDiff : COLOR, out float4 outPosition: POSITION, out float4 outDiffuse: COLOR0, in float2 inTex : TEXCOORD0, out float2 outTex : TEXCOORD0) {
+void vertexShaderTexture(in float4 inPosition: POSITION, in float4 inNormal: NORMAL, in float4 inDiff : COLOR, in float2 inTex : TEXCOORD0, out float4 outPosition: POSITION, out float4 outDiffuse: COLOR0, out float2 outTex : TEXCOORD0) {
 	outPosition = mul(inPosition, g_world_view_projection);
 	inNormal.w = 0;
 	float4 normal = mul(inNormal, g_world);
 	// îÕàÕ 0Å`1
-	outDiffuse = min(max(-dot(g_light_direction, normal) + g_ambient, 0), 1) * inDiff;
+	outDiffuse = (-dot(g_light_direction, normal) + g_ambient) * inDiff;
 	outDiffuse.a = 1.0f;
 	outDiffuse *= g_material_diffuse;
 	outTex = inTex;
@@ -35,7 +37,7 @@ void vertexShaderShadow(in float4 inPosition: POSITION, in float4 inNormal: NORM
 	inNormal.w = 0;
 	float4 normal = mul(inNormal, g_world);
 	// îÕàÕ 0Å`1
-	outDiffuse = min(max(-dot(g_light_direction, normal) + g_ambient, 0), 1) * inDiff;
+	outDiffuse = -dot(g_light_direction, normal) + g_ambient * inDiff;
 	outDiffuse.a = 1.0f;
 	outDiffuse *= g_material_diffuse;
 
@@ -82,5 +84,4 @@ void pixelShader3D(in float4 inDiff: COLOR, out float4 outDiff: COLOR) {
 void pixelShaderTexture(in float2 inTex : TEXCOORD0, in float4 inDiff : COLOR, out float4 outDiff : COLOR) {
 	outDiff = tex2D(g_tex_sampler, inTex) * inDiff;
 };
-
 

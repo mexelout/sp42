@@ -10,6 +10,71 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BlurPlayer.h" />
+    <ClInclude Include="BlurScene.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="Cylinder.h" />
+    <ClInclude Include="DepthShadowPlayer.h" />
+    <ClInclude Include="DepthShadowScene.h" />
+    <ClInclude Include="FogScene.h" />
+    <ClInclude Include="GroundMesh.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="InputKeyboard.h" />
+    <ClInclude Include="InputMouse.h" />
+    <ClInclude Include="Memory.h" />
+    <ClInclude Include="MeshField.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="MotionBlurScene.h" />
+    <ClInclude Include="MultiTexScene.h" />
+    <ClInclude Include="Plane.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="ShaderDevise.h" />
+    <ClInclude Include="ShaderPack.h" />
+    <ClInclude Include="StaticPlane.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="ToonModel.h" />
+    <ClInclude Include="ToonScene.h" />
+    <ClInclude Include="Vertex.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BlurPlayer.cpp" />
+    <ClCompile Include="BlurScene.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Common.cpp" />
+    <ClCompile Include="Cylinder.cpp" />
+    <ClCompile Include="DepthShadowPlayer.cpp" />
+    <ClCompile Include="DepthShadowScene.cpp" />
+    <ClCompile Include="FogScene.cpp" />
+    <ClCompile Include="GroundMesh.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="InputKeyboard.cpp" />
+    <ClCompile Include="InputMouse.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Memory.cpp" />
+    <ClCompile Include="MeshField.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="MotionBlurScene.cpp" />
+    <ClCompile Include="MultiTexScene.cpp" />
+    <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="ShaderDevise.cpp" />
+    <ClCompile Include="StaticPlane.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="ToonModel.cpp" />
+    <ClCompile Include="ToonScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="blur.fx" />
+    <None Include="depth_buffer_shadow.fx" />
+    <None Include="fog.fx" />
+    <None Include="motion_blur.fx" />
+    <None Include="multi_tex.fx" />
+    <None Include="shader.fx" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B6A65B90-0186-4E9D-BD20-2A6C267F3EFB}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -78,27 +143,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <None Include="shader.fx" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Model.cpp" />
-    <ClCompile Include="Plane.cpp" />
-    <ClCompile Include="ShaderDevise.cpp" />
-    <ClCompile Include="ToonModel.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="Plane.h" />
-    <ClInclude Include="ShaderDevise.h" />
-    <ClInclude Include="ToonModel.h" />
-    <ClInclude Include="Vertex.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
