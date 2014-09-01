@@ -3,6 +3,7 @@
 #include <array>
 #include "Vertex.h"
 #include "Player.h"
+#include "ShaderPack.h"
 
 class ToonModel : public Player {
 public:
@@ -12,8 +13,11 @@ public:
 	void update();
 	void draw();
 	void release();
+
+	void setShaderPack(ShaderPack* shader_pack);
 private:
 	LPDIRECT3DTEXTURE9 toon;
 
+	ShaderPack* shader_pack;
 };
 

@@ -3,6 +3,7 @@
 #include "ShaderPack.h"
 
 class GroundMesh;
+class ToonModel;
 
 class FogScene : public Scene {
 public:
@@ -17,5 +18,10 @@ private:
 	ShaderPack vs_linear;
 	ShaderPack vs_length;
 	ShaderPack vs_height;
+
+	ShaderPack toon_cell;
+	ShaderPack toon_line;
+
+	ToonModel* toon_model;
 };
 

@@ -4,8 +4,8 @@
 
 const float Common::screen_width = (float)GetSystemMetrics(SM_CXSCREEN);
 const float Common::screen_height = (float)GetSystemMetrics(SM_CYSCREEN );
-const float Common::window_width = 1200;
-const float Common::window_height = 900;
+const float Common::window_width = 800;
+const float Common::window_height = 600;
 
 Common::Common() {
 

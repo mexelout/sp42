@@ -86,8 +86,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 				Input::update();
 
 				s->update();
-
-
 				s->draw();
 			}
 		} while(msg.message != WM_QUIT);

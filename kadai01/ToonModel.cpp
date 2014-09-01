@@ -5,6 +5,7 @@
 #include "Common.h"
 
 ToonModel::ToonModel(void) {
+	shader_pack = NULL;
 }
 
 
@@ -41,10 +42,28 @@ void ToonModel::draw() {
 	device->GetMaterial(&tmp_mat);
 	device->SetFVF(D3DFVF_CUSTOMMODEL);
 
+	D3DXMATRIX v(Camera::view()), p(Camera::projection()), wvp = (world * v * p);
+
+	HRESULT hr;
+	if(shader_pack) {
+		hr = device->SetVertexShader(shader_pack->vs);
+		hr = shader_pack->constant_table->SetMatrix(device, "g_world_view_projection", &wvp);
+		D3DXVECTOR3 lv(ShaderDevise::getLightVec());
+		hr = shader_pack->constant_table->SetVector(device, "g_light_direction", &D3DXVECTOR4(lv.x, lv.y, lv.z, 1));
+		hr = shader_pack->constant_table->SetMatrix(device, "g_world", &world);
+	}
+
 	for(int i = 0, len = numMaterials(); i < len; i++) {
-		device->SetMaterial(&mat[i].MatD3D);
-		device->SetTexture(0, tex[i]);
+		hr = device->SetMaterial(&mat[i].MatD3D);
+		D3DXVECTOR4 diff(mat[i].MatD3D.Diffuse.r, mat[i].MatD3D.Diffuse.g, mat[i].MatD3D.Diffuse.b, mat[i].MatD3D.Diffuse.a);
+		if(shader_pack) {
+			hr = shader_pack->constant_table->SetVector(device, "g_material_diffuse", &diff);
+		}
+		hr = device->SetTexture(0, toon);
 		this->mesh()->DrawSubset(i);
+	}
+	if(shader_pack) {
+		device->SetVertexShader(NULL);
 	}
 	device->SetMaterial(&tmp_mat);
 }
@@ -52,3 +71,8 @@ void ToonModel::release() {
 	SAFE_RELEASE(toon);
 	Player::release();
 }
+
+void ToonModel::setShaderPack(ShaderPack* shader_pack) {
+	this->shader_pack = shader_pack;
+}
+
