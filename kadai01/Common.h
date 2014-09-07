@@ -2,6 +2,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <string>
+#include <d3dx9.h>
 
 class Common {
 public:
@@ -13,8 +14,10 @@ public:
 	static const float screen_height;
 	static const float window_width;
 	static const float window_height;
+	static const D3DXMATRIX identity;
 	static float random(float min, float max);
 	static int random(int min, int max);
+	static LPDIRECT3DVERTEXBUFFER9 plane(D3DXVECTOR3 scl = D3DXVECTOR3(1, 1, 1), D3DXVECTOR2 uv_pos = D3DXVECTOR2(0, 0), D3DXVECTOR2 uv_scl = D3DXVECTOR2(1, 1));
 private:
 };
 

@@ -131,8 +131,10 @@ void FogScene::draw() {
 
 	toon_model->setShaderPack(&toon_cell);
 	toon_model->draw();
+	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
 	toon_model->setShaderPack(&toon_line);
 	toon_model->draw();
+	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	device->SetRenderState(D3DRS_FOGENABLE, true);
 

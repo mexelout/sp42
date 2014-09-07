@@ -22,6 +22,7 @@
 #include "ToonScene.h"
 #include "MotionBlurScene.h"
 #include "FogScene.h"
+#include "NormalMapScene.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	switch(msg){

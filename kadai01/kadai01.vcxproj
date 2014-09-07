@@ -13,12 +13,15 @@
   <ItemGroup>
     <ClInclude Include="BlurPlayer.h" />
     <ClInclude Include="BlurScene.h" />
+    <ClInclude Include="Box.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Cylinder.h" />
+    <ClInclude Include="DebugScene.h" />
     <ClInclude Include="DepthShadowPlayer.h" />
     <ClInclude Include="DepthShadowScene.h" />
     <ClInclude Include="FogScene.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="GroundMesh.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="InputKeyboard.h" />
@@ -28,9 +31,11 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="MotionBlurScene.h" />
     <ClInclude Include="MultiTexScene.h" />
+    <ClInclude Include="NormalMapScene.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ShaderDevise.h" />
     <ClInclude Include="ShaderPack.h" />
     <ClInclude Include="StaticPlane.h" />
@@ -42,12 +47,15 @@
   <ItemGroup>
     <ClCompile Include="BlurPlayer.cpp" />
     <ClCompile Include="BlurScene.cpp" />
+    <ClCompile Include="Box.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="Cylinder.cpp" />
+    <ClCompile Include="DebugScene.cpp" />
     <ClCompile Include="DepthShadowPlayer.cpp" />
     <ClCompile Include="DepthShadowScene.cpp" />
     <ClCompile Include="FogScene.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="GroundMesh.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="InputKeyboard.cpp" />
@@ -58,9 +66,11 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="MotionBlurScene.cpp" />
     <ClCompile Include="MultiTexScene.cpp" />
+    <ClCompile Include="NormalMapScene.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="ShaderDevise.cpp" />
     <ClCompile Include="StaticPlane.cpp" />
     <ClCompile Include="Timer.cpp" />

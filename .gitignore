@@ -19,3 +19,8 @@
 *.exe
 *.out
 *.app
+
+
+kadai01/Debug
+kadai01/Release
+kadai01/ipch

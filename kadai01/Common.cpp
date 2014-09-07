@@ -1,11 +1,15 @@
 #include <Windows.h>
 #include <stdarg.h>
 #include "Common.h"
+#include "ShaderDevise.h"
+#include "Vertex.h"
 
 const float Common::screen_width = (float)GetSystemMetrics(SM_CXSCREEN);
 const float Common::screen_height = (float)GetSystemMetrics(SM_CYSCREEN );
-const float Common::window_width = 800;
-const float Common::window_height = 600;
+const float Common::window_width = 16 * 60;
+const float Common::window_height = 9 * 60;
+
+const D3DXMATRIX Common::identity = *D3DXMatrixIdentity(&D3DXMATRIX());
 
 Common::Common() {
 
@@ -72,6 +76,29 @@ float Common::random(float min, float max) {
 
 int Common::random(int min, int max) {
 	return (int)(random((float)min, (float)max));
+}
+
+LPDIRECT3DVERTEXBUFFER9 Common::plane(D3DXVECTOR3 scl, D3DXVECTOR2 uv_pos, D3DXVECTOR2 uv_scl) {
+	LPDIRECT3DDEVICE9 device = ShaderDevise::device();
+	LPDIRECT3DVERTEXBUFFER9 vtx;
+	device->CreateVertexBuffer(
+		sizeof(CUSTOMVERTEX)*4,
+		D3DUSAGE_WRITEONLY,
+		D3DFVF_CUSTOMVERTEX,
+		D3DPOOL_MANAGED,
+		&vtx,
+		NULL
+	);
+
+	CUSTOMVERTEX *data;
+	vtx->Lock(0, 0, (void**)&data, 0);
+	data[0] = CUSTOMVERTEX(D3DXVECTOR3(-0.5f*scl.x,  0.5f*scl.y,  0), D3DXVECTOR3(0, 0, -1), 0xffffffff, uv_pos);
+	data[1] = CUSTOMVERTEX(D3DXVECTOR3( 0.5f*scl.x,  0.5f*scl.y,  0), D3DXVECTOR3(0, 0, -1), 0xffffffff, D3DXVECTOR2(uv_pos.x + uv_scl.x, uv_pos.y));
+	data[2] = CUSTOMVERTEX(D3DXVECTOR3(-0.5f*scl.x, -0.5f*scl.y, 0), D3DXVECTOR3(0, 0, -1), 0xffffffff, D3DXVECTOR2(uv_pos.x, uv_pos.y + uv_scl.y));
+	data[3] = CUSTOMVERTEX(D3DXVECTOR3( 0.5f*scl.x, -0.5f*scl.y, 0), D3DXVECTOR3(0, 0, -1), 0xffffffff, D3DXVECTOR2(uv_pos.x + uv_scl.x, uv_pos.y + uv_scl.y));
+	vtx->Unlock();
+
+	return vtx;
 }
 
 // end line
