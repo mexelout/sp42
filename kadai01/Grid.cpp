@@ -18,10 +18,10 @@ void Grid::update() {
 void Grid::draw() {
 	LPDIRECT3DDEVICE9 device = ShaderDevise::device();
 	device->SetRenderState(D3DRS_LIGHTING, false);
-
 	device->SetStreamSource(0, vtx, 0, sizeof(CUSTOMVERTEX));
 	device->SetFVF(D3DFVF_CUSTOMVERTEX);
 	device->SetTransform(D3DTS_WORLD, &D3DXMATRIX(Common::identity));
+	device->SetTexture(0, NULL);
 	device->DrawPrimitive(D3DPT_LINELIST, 0, (size+1)*2*2);
 
 	device->SetRenderState(D3DRS_LIGHTING, true);
@@ -65,19 +65,21 @@ Grid* Grid::createGrid() {
 		int ofs = i / 2;
 		D3DXVECTOR3 p(-size*block_size.x/2+ofs*block_size.x, 0, -size*block_size.y/2);
 		D3DXVECTOR2 uv((float)ofs / (float)size, 0);
-		data[i] = CUSTOMVERTEX(p, D3DXVECTOR3(0, 0, -1), 0xffffffff, uv);
+		D3DCOLOR color = (i != v_num-1)?0xffffffff:0xffff0000;
+		data[i] = CUSTOMVERTEX(p, D3DXVECTOR3(0, 0, -1), color, uv);
 		p.z *= -1;
 		uv.y = 1;
-		data[i+1] = CUSTOMVERTEX(p, D3DXVECTOR3(0, 0, -1), 0xffffffff, uv);
+		data[i+1] = CUSTOMVERTEX(p, D3DXVECTOR3(0, 0, -1), color, uv);
 	}
 	for(int i = 0, len = v_num*2; i < len; i+=2) {
 		int ofs = i / 2;
 		D3DXVECTOR3 p(-size*block_size.x/2, 0, -size*block_size.y/2+ofs*block_size.y);
 		D3DXVECTOR2 uv(0, (float)ofs / (float)size);
-		data[v_num*2+i] = CUSTOMVERTEX(p, D3DXVECTOR3(0, 1, 0), 0xffffffff, uv);
+		D3DCOLOR color = (i != v_num-1)?0xffffffff:0xff0000ff;
+		data[v_num*2+i] = CUSTOMVERTEX(p, D3DXVECTOR3(0, 1, 0), color, uv);
 		p.x *= -1;
 		uv.x = 1;
-		data[v_num*2+i+1] = CUSTOMVERTEX(p, D3DXVECTOR3(0, 1, 0), 0xffffffff, uv);
+		data[v_num*2+i+1] = CUSTOMVERTEX(p, D3DXVECTOR3(0, 1, 0), color, uv);
 	}
 	vtx->Unlock();
 	return this;

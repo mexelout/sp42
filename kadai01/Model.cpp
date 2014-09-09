@@ -6,6 +6,8 @@ Model::Model(void) {
 	_indices = NULL;
 	_num_face = 0;
 	_mesh = NULL;
+	ZeroMemory(&_materials, sizeof(_materials));
+	_num_materials = 0;
 }
 
 Model::~Model(void) {
@@ -38,7 +40,6 @@ Model* Model::init(LPDIRECT3DDEVICE9 device, std::string filename) {
 		if(material[i].pTextureFilename) {
 			D3DXCreateTextureFromFile(device, material[i].pTextureFilename, &tex);
 		} else {
-			D3DXCreateTextureFromFile(device, "textures/white.png", &tex);
 		}
 		_textures.push_back(tex);
 	}
@@ -84,4 +85,17 @@ void drawVolumeShadow() {
 
 std::vector<LPDIRECT3DTEXTURE9> Model::textures() {
 	return _textures;
+}
+
+void Model::cloneMesh(LPDIRECT3DDEVICE9 device, const D3DVERTEXELEMENT9 vertex_decl[]) {
+	LPD3DXMESH temp = NULL;
+
+	// クローンメッシュ生成
+	_mesh->CloneMesh(_mesh->GetOptions(), vertex_decl, device, &temp);
+	_mesh->Release();
+	_mesh = temp;
+}
+
+void Model::setMesh(LPD3DXMESH mesh) {
+	_mesh = mesh;
 }

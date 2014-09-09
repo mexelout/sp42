@@ -1,6 +1,7 @@
 #pragma once
-#include "scene.h"
 #include <d3dx9.h>
+#include "scene.h"
+#include "ShaderPack.h"
 
 class Box;
 class Grid;
@@ -20,5 +21,7 @@ private:
 	Grid* grid;
 	D3DXVECTOR3 camera_rot;
 
+	ShaderPack normal_vs;
+	ShaderPack normal_ps;
 };
 

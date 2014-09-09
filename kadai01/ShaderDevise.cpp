@@ -73,6 +73,16 @@ ShaderDevise* ShaderDevise::init(int w, int h, HWND hWnd) {
 	light_vec = light.Direction;
 	_device->SetRenderState(D3DRS_SPECULARENABLE, true);
 
+	D3DMATERIAL9 mat = {
+		1, 1, 1, 1,
+		0.5f, 0.5f, 0.5f, 1.0f,
+		0.8f, 0.8f, 0.8f, 1.0f,
+		0, 0, 0, 0,
+		5
+	};
+
+	_device->SetMaterial(&mat);
+
 	// ƒtƒHƒ“ƒg‚Ì¶¬
 	int fontsize = 24;
 	D3DXFONT_DESC lf = {fontsize, 0, 0, 1, 0, SHIFTJIS_CHARSET, OUT_TT_ONLY_PRECIS,

@@ -56,9 +56,10 @@ void vertexShaderCell(in float4 inPosition: POSITION, in float4 inNormal: NORMAL
 
 void vertexShaderLine(in float4 inPosition: POSITION, in float4 inNormal: NORMAL, in float4 inDiff : COLOR, out float4 outPosition: POSITION, out float4 outDiff: COLOR0, in float2 inTex : TEXCOORD0, out float2 outTex : TEXCOORD0) {
 	inNormal.w = 0;
-	inPosition += (inNormal * 0.5f);
+	inPosition += (inNormal * 0.0125f);
 	outPosition = mul(inPosition, g_world_view_projection);
 	outDiff = 0;
+	outDiff.a = 1;
 	outTex.x = 0.5f;
 	outTex.y = 0.5f;
 }

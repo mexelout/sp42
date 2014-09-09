@@ -17,7 +17,7 @@ void SceneManager::init() {
 	scene = (new DebugScene)->init();
 }
 void SceneManager::update() {
-	if(InputKeyboard::isKey(DIK_F12, Input::Trigger)) {
+	if(InputKeyboard::isKey(DIK_ESCAPE, Input::Trigger)) {
 		setScene((new DebugScene)->init());
 	}
 	scene->update();
