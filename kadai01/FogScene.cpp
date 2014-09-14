@@ -83,7 +83,7 @@ void FogScene::draw() {
 	//at += dif;
 	//Camera::setAt(at);
 
-	D3DXMATRIX world(ground_mesh->getWorld()), view(Camera::view()), proj(Camera::projection()), world_view_proj(world*view*proj);
+	D3DXMATRIX world(Common::identity), view(Camera::view()), proj(Camera::projection()), world_view_proj(world*view*proj);
 	D3DXVECTOR3 light_vec3(ShaderDevise::getLightVec()), eye3(Camera::eye());
 	D3DXVECTOR4 light_vec4(light_vec3.x, light_vec3.y, light_vec3.z, 1), eye4(eye3.x, eye3.y, eye3.z, 1);
 

@@ -21,7 +21,7 @@ void SceneManager::init() {
 #ifdef _DEBUG
 	scene = (new DebugScene)->init();
 #else
-	scene = (new NormalMapScene)->init();
+	scene = (new MotionBlurScene)->init();
 #endif
 }
 void SceneManager::update() {

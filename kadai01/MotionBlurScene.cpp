@@ -5,6 +5,7 @@
 #include "Input.h"
 #include "BlurPlayer.h"
 #include "MeshField.h"
+#include "GroundMesh.h"
 
 MotionBlurScene::MotionBlurScene(void) {
 	player = NULL;
@@ -15,7 +16,7 @@ MotionBlurScene::MotionBlurScene(void) {
 	back_buffer = NULL;
 	z_buffer = NULL;
 	vtx = NULL;
-
+	blur_frame_num = 0;
 }
 
 MotionBlurScene::~MotionBlurScene(void) {
@@ -25,7 +26,11 @@ MotionBlurScene* MotionBlurScene::init() {
 	LPDIRECT3DDEVICE9 device = ShaderDevise::device();
 
 	player = (new BlurPlayer)->init();
-	mesh_field = (new MeshField)->init();
+	mesh_field = (new GroundMesh)->init();
+	D3DXVECTOR3 ppos = player->pos();
+	ppos.y = mesh_field->getHeight(&ppos);
+	player->setGroundHeight(ppos.y);
+
 
 	device->GetRenderTarget(0, &back_buffer);
 	device->GetDepthStencilSurface(&z_buffer);
@@ -79,52 +84,48 @@ MotionBlurScene* MotionBlurScene::init() {
 
 	vertex_shader.loadFunc(device, "motion_blur.fx", "vertexShaderMotionBlur", "vs_2_0");
 	pixel_shader.loadFunc(device, "motion_blur.fx", "pixelShaderMotionBlur", "ps_2_0");
+
+	Camera::setEye(D3DXVECTOR3(30, -43, 0));
+	Camera::setAt(D3DXVECTOR3(0, -50, 0));
+
+	// ２の方がブラーってる(え？
+	blur_frame_num = 2;
+
 	return this;
 }
 void MotionBlurScene::update() {
-	static float angle = D3DX_PI*0.5f;
-	static float angle_x = (float)M_PI_4 - 0.4f;
-	static float length = 15;
-
-	if(InputMouse::btn(InputMouse::Right, Input::Press)) {
-		angle+=(InputMouse::move().x/100.0f);
-		angle_x-=(InputMouse::move().y/100.0f);
-		if(angle_x >= ((float)M_PI_2 - 0.017f)) angle_x = ((float)M_PI_2 - 0.017f);
-		else if(angle_x <= -((float)M_PI_2 - 0.017f)) angle_x = -((float)M_PI_2 - 0.017f);
-	}
-	length += InputMouse::wheel() / 100;
-	if(length < 3) length = 3;
-
-	static bool is_first = true;
-	if(is_first) {
-		float len = cosf(angle_x), s = sinf(angle) * len, c = cosf(angle) * len;
-		Camera::setEye(D3DXVECTOR3(c, sinf(angle_x), s)*length + player->pos());
-		Camera::setAt(player->pos() + D3DXVECTOR3(0, 1, 0));
-		is_first = false;
-	}
-
 	player->update();
 	D3DXVECTOR3 ppos = player->pos();
 	ppos.y = mesh_field->getHeight(&ppos);
 	player->setGroundHeight(ppos.y);
 
+	for(int dik = DIK_1; dik <= DIK_9; dik++) {
+		if(InputKeyboard::isKey(dik, Input::Trigger)) {
+			blur_frame_num = dik - DIK_1 + 1;
+		}
+	}
+	if(InputKeyboard::isKey(DIK_0, Input::Trigger)) {
+		blur_frame_num = 0;
+	}
 }
 void MotionBlurScene::draw() {
 	LPDIRECT3DDEVICE9 device = ShaderDevise::device();
-	const D3DXMATRIX& view = Camera::view(), proj = Camera::projection();
+	D3DXMATRIX view(Camera::view()), proj(Camera::projection());
+	D3DXMATRIX world(Common::identity);
 
 	// texture へ描画
 	device->SetRenderTarget(0, back_surface);
 	device->SetDepthStencilSurface(z_surface);
 
-	device->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0 );
+	device->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xff191970, 1.0f, 0 );
 	device->BeginScene();
 
+	device->SetTransform(D3DTS_WORLD, &world);
 	device->SetTransform(D3DTS_VIEW, &view);
 	device->SetTransform(D3DTS_PROJECTION, &proj);
 
-	player->draw();
 	mesh_field->draw();
+	player->draw();
 
 	device->EndScene();
 
@@ -132,36 +133,45 @@ void MotionBlurScene::draw() {
 	device->SetRenderTarget(0, back_buffer);
 	device->SetDepthStencilSurface(z_buffer);
 
-	device->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xff191970, 1.0f, 0 );
+	device->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xffffffff, 1.0f, 0 );
 	device->BeginScene();
 
-	device->SetFVF(D3DFVF_CUSTOMVERTEX);
-	D3DXMATRIX world = *D3DXMatrixIdentity(&D3DXMATRIX());
-	device->SetTransform(D3DTS_WORLD, &world);
-	device->SetTransform(D3DTS_VIEW, &*D3DXMatrixIdentity(&D3DXMATRIX()));
-	device->SetTransform(D3DTS_PROJECTION, &*D3DXMatrixOrthoLH(&D3DXMATRIX(), Common::window_width, Common::window_height, -1, 1));
+	view = Common::identity;
 
+	device->SetTransform(D3DTS_WORLD, &world);
+	device->SetTransform(D3DTS_VIEW, &view);
+	device->SetTransform(D3DTS_PROJECTION, &Camera::ortho());
+
+	device->SetFVF(D3DFVF_CUSTOMVERTEX);
 	device->SetStreamSource(0, vtx, 0, sizeof(CUSTOMVERTEX));
+	device->SetRenderState(D3DRS_LIGHTING, false);
 	device->SetTexture(0, texture);
+	device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
+
 	device->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+
+	device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+	device->SetRenderState(D3DRS_LIGHTING, true);
+	device->SetStreamSource(0, NULL, 0, 0);
+	device->SetIndices(NULL);
+	device->SetTexture(0, NULL);
 
 	device->Clear( 0, NULL, D3DCLEAR_ZBUFFER, 0xff191970, 1.0f, 0 );
 
 	device->SetTransform(D3DTS_VIEW, &view);
 	device->SetTransform(D3DTS_PROJECTION, &proj);
 
-	D3DXVECTOR3 pos = player->pos();
-
 	D3DXMATRIX wvp, owvp;
+	view = Camera::view();
 	world = player->getWorld();
 	wvp = world * view * proj;
-	player->setPos(player->getOldPos());
-	world = player->getWorld();
-	player->setPos(pos);
+	world = player->getOldWorld(blur_frame_num);
 	owvp = world * view * proj;
 	HRESULT hr = 0;
 	hr = vertex_shader.constant_table->SetMatrix(device, "g_wvp", &wvp);
 	hr = vertex_shader.constant_table->SetMatrix(device, "g_owvp", &owvp);
+	hr = pixel_shader.constant_table->SetInt(device, "blur_frame_num", blur_frame_num);
+
 	device->SetVertexShader(vertex_shader.vs);
 	device->SetPixelShader(pixel_shader.ps);
 	player->blur_texture = texture;
@@ -169,6 +179,11 @@ void MotionBlurScene::draw() {
 	player->blur_texture = NULL;
 	device->SetVertexShader(NULL);
 	device->SetPixelShader(NULL);
+
+	ShaderDevise::drawText(Common::debug("blur num(0～9): %d", blur_frame_num).c_str());
+	ShaderDevise::drawText(Common::debug("WASD 移動").c_str());
+	ShaderDevise::drawText(Common::debug("SPACE ジャンプ").c_str());
+	ShaderDevise::drawText(Common::debug("ESC アプリケーション終了").c_str());
 
 	device->EndScene();
 	device->Present( NULL, NULL, NULL, NULL );

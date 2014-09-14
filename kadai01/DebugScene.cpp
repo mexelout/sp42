@@ -8,6 +8,8 @@
 #include "DebugScene.h"
 #include "FogScene.h"
 #include "NormalMapScene.h"
+#include "BlurScene.h"
+#include "MotionBlurScene.h"
 
 DebugScene::DebugScene(void) {
 	current = 0;
@@ -20,7 +22,9 @@ DebugScene::~DebugScene(void) {
 DebugScene* DebugScene::init() {
 	menu.push_back("Fog");
 	menu.push_back("NormalMap");
-	menu.push_back("exit");
+	menu.push_back("DepthBlur");
+	menu.push_back("MotionBlur");
+	menu.push_back("Exit");
 
 	return this;
 }
@@ -32,6 +36,8 @@ void DebugScene::update() {
 		switch(current) {
 			case 0: SceneManager::setScene((new FogScene)->init()); break;
 			case 1: SceneManager::setScene((new NormalMapScene)->init()); break;
+			case 2: SceneManager::setScene((new BlurScene)->init()); break;
+			case 3: SceneManager::setScene((new MotionBlurScene)->init()); break;
 			default: DestroyWindow(WindowManager::inst().getWnd()); break;
 		}
 	}

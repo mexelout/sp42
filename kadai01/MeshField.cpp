@@ -41,8 +41,7 @@ MeshField* MeshField::init() {
 	std::vector<float> vertices;
 	for(int i = 0; i < vertical; i++) {
 		for(int j = 0; j < horizontal; j++) {
-			// ‚±‚±‚Å‚‚³Ý’è‚µ‚Ä‚é
-			vertices.push_back((float)(rand()%100)/50.0f);
+			vertices.push_back(0);
 		}
 	}
 	setMeshVertex(vertices);
@@ -110,6 +109,7 @@ void MeshField::draw() {
 		device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 	}
 
+	device->SetTexture(0, NULL);
 	device->SetStreamSource(0, NULL, 0, 0);
 	device->SetIndices(NULL);
 }
@@ -280,8 +280,3 @@ std::vector<float> MeshField::getMeshVertex() {
 	return v;
 }
 
-D3DXMATRIX MeshField::getWorld() {
-	D3DXMATRIX world;
-	D3DXMatrixIdentity(&world);
-	return world;
-}

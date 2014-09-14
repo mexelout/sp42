@@ -13,7 +13,8 @@ void vertexShadowDepth(in float4 inpos : POSITION, out float4 outpos : POSITION,
 	mat  = mul( mat, g_proj );
 	outpos = mul(inpos, mat);
 
-	outdepth.x = outpos.z/20.0f;
+	outdepth = 0;
+	outdepth.x = outpos.z/300.0f;
 }
 void pixelShaderDepth(in float4 intex: TEXCOORD0, out float4 outdiff: COLOR) {
 	outdiff = intex.x;

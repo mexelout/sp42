@@ -11,7 +11,6 @@ public:
 	virtual void draw();
 	virtual void release();
 	float getHeight(const D3DXVECTOR3* pos);
-	D3DXMATRIX getWorld();
 protected:
 	void calcNor();
 	LPDIRECT3DVERTEXBUFFER9 vtx;

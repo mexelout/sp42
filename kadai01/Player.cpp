@@ -67,8 +67,9 @@ void Player::updateAction() {
 	if(is_down_key) {
 		float s = sinf(mv_angle), c = cosf(mv_angle);
 		float x = dir.x * c - dir.z * s, z = dir.x * s + dir.z * c;
-		_pos.x += x*0.2f;
-		_pos.z += z*0.2f;
+		float spd = (InputKeyboard::isKey(DIK_LSHIFT, Input::Press)) ? 0.8f : 0.2f;
+		_pos.x += x*spd;
+		_pos.z += z*spd;
 		float d = D3DXVec3Dot(&D3DXVECTOR3(1, 0, 0), &D3DXVECTOR3(x, 0, z));
 		if(d > 1) d = 1; else if(d < -1) d = -1;
 		float ang = acosf(d);
@@ -79,16 +80,23 @@ void Player::updateAction() {
 
 void Player::updateGravity() {
 	static float game_speed = 0.5f;
-	if(InputKeyboard::isKey(DIK_SPACE, Input::Trigger) && is_grounded) {
-		_speed.y = 0.8f * game_speed;
+	_speed.y -= (4.9f * 0.016f * game_speed);
+
+	float new_y = _pos.y - _speed.y;
+	if(ground_pos_y + 1 < new_y) {
+		is_grounded = false;
 	}
 
-	if(_pos.y == ground_pos_y && _speed.y == 0) {
+	if(InputKeyboard::isKey(DIK_SPACE, Input::Trigger) && is_grounded) {
+		_speed.y = 0.8f * game_speed;
+		is_grounded = false;
+	}
+
+	if(is_grounded) {
 		_speed.y = -10 * game_speed;
 	}
 	
 	_pos.y += _speed.y;
-	_speed.y -= (4.9f * 0.016f * game_speed);
 	
 	is_grounded = false;
 	if(ground_pos_y > _pos.y) {

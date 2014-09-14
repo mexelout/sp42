@@ -4,7 +4,7 @@
 #include "Input.h"
 #include "Common.h"
 #include "Timer.h"
-#include "MeshField.h"
+#include "GroundMesh.h"
 
 BlurScene::BlurScene(void) {
 	player = NULL;
@@ -27,7 +27,7 @@ BlurScene* BlurScene::init() {
 	LPDIRECT3DDEVICE9 device = ShaderDevise::device();
 	player = (new BlurPlayer)->init();
 	//plane = (new StaticPlane)->init();
-	mesh_field = (new MeshField)->init();
+	mesh_field = (new GroundMesh)->init();
 
 	float harf_width = Common::window_width/2, harf_height = Common::window_height/2;
 	for(int i = 0; i < 4; i++) {
@@ -126,6 +126,8 @@ void BlurScene::update() {
 	//plane->update();
 	mesh_field->update();
 
+	player->setGroundHeight(mesh_field->getHeight(&player->pos()));
+
 	Camera::setEye(D3DXVECTOR3(c, sinf(angle_x), s)*length + player->pos());
 	Camera::setAt(player->pos() + D3DXVECTOR3(0, 1, 0));
 
@@ -141,6 +143,7 @@ void BlurScene::draw() {
 	}
 
 	LPDIRECT3DDEVICE9 device = ShaderDevise::device();
+	D3DXMATRIX world(Common::identity), view(Common::identity), proj(Common::identity);
 
 	// original
 	device->SetRenderTarget(0, back_surface[0]);
@@ -150,8 +153,14 @@ void BlurScene::draw() {
 
 	device->BeginScene();
 
+	world = Common::identity;
+	view = Camera::view();
+	proj = Camera::projection();
+	device->SetTransform(D3DTS_WORLD, &world);
+	device->SetTransform(D3DTS_VIEW, &view);
+	device->SetTransform(D3DTS_PROJECTION, &proj);
+
 	player->draw();
-	//plane->draw();
 	mesh_field->draw();
 
 	device->EndScene();
@@ -163,11 +172,9 @@ void BlurScene::draw() {
 	device->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_ARGB(0, 0, 0, 0), 1.0f, 0 );
 
 	device->BeginScene();
-
-	D3DXMATRIX world, view, proj;
-	D3DXMatrixIdentity(&world);
-	D3DXMatrixIdentity(&view);
-	D3DXMatrixOrthoLH(&proj, Common::window_width, Common::window_height, -1, 1);
+	world = Common::identity;
+	view = Common::identity;
+	proj = Camera::ortho();
 
 	device->SetTransform(D3DTS_WORLD, &world);
 	device->SetTransform(D3DTS_VIEW, &view);
@@ -193,12 +200,11 @@ void BlurScene::draw() {
 	device->SetTransform(D3DTS_PROJECTION, &proj);
 
 	device->SetStreamSource(0, vb, 0, sizeof(CUSTOMVERTEX));
-	device->SetTexture(0, texture[0]);
+	device->SetTexture(0, texture[1]);
 	device->SetPixelShader(blur_horizontal.ps);
 	device->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
 
 	device->EndScene();
-
 
 	// depth
 	device->SetRenderTarget(0, back_surface[3]);
@@ -207,6 +213,9 @@ void BlurScene::draw() {
 	device->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_ARGB(0, 0, 0, 0), 1.0f, 0 );
 
 	device->BeginScene();
+	world = Common::identity;
+	view = Camera::view();
+	proj = Camera::projection();
 
 	device->SetTransform(D3DTS_WORLD, &world);
 	device->SetTransform(D3DTS_VIEW, &view);
@@ -221,9 +230,7 @@ void BlurScene::draw() {
 	depth_vertex.constant_table->SetMatrix(device, "g_view", &Camera::view());
 	depth_vertex.constant_table->SetMatrix(device, "g_proj", &Camera::projection());
 	player->draw();
-
-	depth_vertex.constant_table->SetMatrix(device, "g_world", &plane->getWorld());
-	//plane->draw();
+	depth_vertex.constant_table->SetMatrix(device, "g_world", &world);
 	mesh_field->draw();
 
 	device->EndScene();
@@ -236,18 +243,33 @@ void BlurScene::draw() {
 	device->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 30, 67), 1.0f, 0 );
 	device->BeginScene();
 
-	D3DXMatrixIdentity(&world);
-	D3DXMatrixIdentity(&view);
 	D3DXMatrixOrthoLH(&proj, Common::window_width, Common::window_height, -1, 1);
+	world = Common::identity;
+	view = Common::identity;
+	proj = Camera::ortho();
 
 	device->SetTransform(D3DTS_WORLD, &world);
 	device->SetTransform(D3DTS_VIEW, &view);
 	device->SetTransform(D3DTS_PROJECTION, &proj);
-
-
-	device->SetFVF(D3DFVF_CUSTOMVERTEX);
 	device->SetRenderState(D3DRS_LIGHTING, FALSE);
 
+	device->SetFVF(D3DFVF_CUSTOMVERTEX);
+
+	device->SetPixelShader(multi_tex.ps);
+	device->SetVertexShader(NULL);
+
+	device->SetTexture(multi_tex.constant_table->GetSamplerIndex("g_tex_sampler1"), texture[0]);
+	device->SetTexture(multi_tex.constant_table->GetSamplerIndex("g_tex_sampler2"), texture[2]);
+	device->SetTexture(multi_tex.constant_table->GetSamplerIndex("g_tex_sampler3"), texture[3]);
+	device->SetStreamSource(0, vb, 0, sizeof(CUSTOMVERTEX));
+	device->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+
+	device->SetPixelShader(NULL);
+	device->SetTexture(multi_tex.constant_table->GetSamplerIndex("g_tex_sampler1"), NULL);
+	device->SetTexture(multi_tex.constant_table->GetSamplerIndex("g_tex_sampler2"), NULL);
+	device->SetTexture(multi_tex.constant_table->GetSamplerIndex("g_tex_sampler3"), NULL);
+
+	/*
 	switch(slide) {
 		case 0:
 			device->SetVertexShader(NULL);
@@ -306,7 +328,7 @@ void BlurScene::draw() {
 		default:
 			break;
 	}
-
+	*/
 
 
 	device->SetRenderState(D3DRS_LIGHTING, TRUE);

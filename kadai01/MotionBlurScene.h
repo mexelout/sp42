@@ -13,9 +13,12 @@ public:
 	void update();
 	void draw();
 	void release();
+
 private:
 	BlurPlayer* player;
 	MeshField* mesh_field;
+
+	int blur_frame_num;
 
 	LPDIRECT3DTEXTURE9 texture;
 	LPDIRECT3DSURFACE9 back_surface;
@@ -28,5 +31,6 @@ private:
 
 	ShaderPack vertex_shader;
 	ShaderPack pixel_shader;
+
 };
 

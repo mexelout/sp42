@@ -1,5 +1,6 @@
 float4x4 g_wvp: WORLDVIEWPROJECTION;
 float4x4 g_owvp: WORLDVIEWPROJECTION;
+int blur_frame_num = 1;
 
 sampler g_tex_sampler;
 
@@ -13,7 +14,7 @@ void vertexShaderMotionBlur(in float4 ipos: POSITION, in float4 inor: NORMAL, ou
 
 	inor.w = 0;
 	float4 nor = mul(inor, g_wvp);
-	float d = dot(nor, velocity);
+	float d = dot(nor.xy, velocity);
 	if(d >= 0) {
 		opos = newpos;
 	} else {
@@ -29,6 +30,7 @@ void vertexShaderMotionBlur(in float4 ipos: POSITION, in float4 inor: NORMAL, ou
 void pixelShaderMotionBlur(in float2 itex: TEXCOORD0, in float2 ivel: TEXCOORD1, out float4 odif: COLOR) {
 	odif = 0.0f;
 	for(int i = 0; i < 10; i++) {
-		odif += tex2D(g_tex_sampler,  itex - ivel * i * 0.1f) * 0.1f;
+		odif += tex2D(g_tex_sampler,  itex + (ivel * 0.1f * i * blur_frame_num)) * 0.1f;
 	}
+	odif.a = 1.0f;
 }
