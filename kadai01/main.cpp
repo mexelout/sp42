@@ -46,7 +46,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	RECT clientRect = {0, 0, w, h};
 	AdjustWindowRect( &clientRect, WS_OVERLAPPEDWINDOW, FALSE );
 
-	if(!(hWnd = CreateWindow("cls_name", "GQ41", WS_OVERLAPPEDWINDOW, 0, 0,
+	if(!(hWnd = CreateWindow("cls_name", "SP42", WS_OVERLAPPEDWINDOW, 0, 0,
 		clientRect.right - clientRect.left, clientRect.bottom - clientRect.top,
 		NULL, NULL, hInstance, NULL)))
 		return 0;

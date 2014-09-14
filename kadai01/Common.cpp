@@ -6,10 +6,13 @@
 
 const float Common::screen_width = (float)GetSystemMetrics(SM_CXSCREEN);
 const float Common::screen_height = (float)GetSystemMetrics(SM_CYSCREEN );
-const float Common::window_width = 16 * 80;
-const float Common::window_height = 9 * 80;
+const float Common::window_width = 16 * 70;
+const float Common::window_height = 9 * 70;
 
 const D3DXMATRIX Common::identity = *D3DXMatrixIdentity(&D3DXMATRIX());
+const D3DXVECTOR2 Common::vec2zero(0, 0);
+const D3DXVECTOR3 Common::vec3zero(0, 0, 0);
+const D3DXVECTOR4 Common::vec4zero(0, 0, 0, 0);
 
 Common::Common() {
 

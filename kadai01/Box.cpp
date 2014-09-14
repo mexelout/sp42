@@ -8,6 +8,8 @@ Box::Box() {
 	model = NULL;
 	world = Common::identity;
 	texture = NULL;
+	normal = NULL;
+	height_map = NULL;
 }
 Box::~Box() {
 }
@@ -26,8 +28,9 @@ Box* Box::init() {
 	model->cloneMesh(device, vertex_decl);
 	D3DXComputeTangent(model->mesh(), 0, 0, 0, 0, NULL);
 
-	D3DXCreateTextureFromFile(device, "textures/wall000.png", &texture);
-	D3DXCreateTextureFromFile(device, "textures/wall000b.png", &normal);
+	D3DXCreateTextureFromFile(device, "textures/Base.bmp", &texture);
+	D3DXCreateTextureFromFile(device, "textures/Rock_Normal.bmp", &normal);
+	D3DXCreateTextureFromFile(device, "textures/Rock_Displacement.bmp", &height_map);
 
 	return this;
 }
@@ -57,6 +60,7 @@ void Box::draw() {
 void Box::release() {
 	SAFE_RELEASE(texture);
 	SAFE_RELEASE(normal);
+	SAFE_RELEASE(height_map);
 	SAFE_RELEASE_DELETE(model);
 }
 
@@ -72,6 +76,7 @@ std::map<std::string, LPDIRECT3DTEXTURE9> Box::getTextures() {
 	std::map<std::string, LPDIRECT3DTEXTURE9> textures;
 	textures["texture"] = texture;
 	textures["normal"] = normal;
+	textures["height_map"] = height_map;
 	return textures;
 }
 

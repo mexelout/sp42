@@ -48,17 +48,17 @@ ShaderDevise* ShaderDevise::init(int w, int h, HWND hWnd) {
 		}
 	}
 
-	_device->SetRenderState(D3DRS_CULLMODE , D3DCULL_CCW);
-	_device->SetRenderState(D3DRS_LIGHTING , TRUE);
+	_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	_device->SetRenderState(D3DRS_LIGHTING, TRUE);
 	_device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	_device->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA );
+	_device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	_device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	_device->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-	_device->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );  
- 	_device->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE );
-	_device->SetTextureStageState( 0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE );
-	_device->SetTextureStageState( 0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE );
-	_device->SetTextureStageState( 0, D3DTSS_ALPHAOP, D3DTOP_MODULATE );
+	_device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+	_device->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);  
+ 	_device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+	_device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+	_device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+	_device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
 
 	ZeroMemory( &light, sizeof(D3DLIGHT9) );
 	light.Type      = D3DLIGHT_DIRECTIONAL;

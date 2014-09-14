@@ -24,4 +24,5 @@ private:
 	D3DXMATRIX world;
 	LPDIRECT3DTEXTURE9 texture;
 	LPDIRECT3DTEXTURE9 normal;
+	LPDIRECT3DTEXTURE9 height_map;
 };
