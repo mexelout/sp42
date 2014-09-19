@@ -12,7 +12,7 @@ public:
 	void release();
 	D3DXMATRIX getWorld();
 
-private:
+protected:
 	LPDIRECT3DVERTEXBUFFER9 vtx;
 
 

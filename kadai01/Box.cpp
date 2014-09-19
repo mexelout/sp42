@@ -28,6 +28,8 @@ Box* Box::init() {
 	model->cloneMesh(device, vertex_decl);
 	D3DXComputeTangent(model->mesh(), 0, 0, 0, 0, NULL);
 
+	
+
 	D3DXCreateTextureFromFile(device, "textures/Base.bmp", &texture);
 	D3DXCreateTextureFromFile(device, "textures/Rock_Normal.bmp", &normal);
 	D3DXCreateTextureFromFile(device, "textures/Rock_Displacement.bmp", &height_map);

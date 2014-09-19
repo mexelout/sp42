@@ -10,6 +10,7 @@
 #include "NormalMapScene.h"
 #include "BlurScene.h"
 #include "MotionBlurScene.h"
+#include "TestScene.h"
 
 DebugScene::DebugScene(void) {
 	current = 0;
@@ -24,13 +25,26 @@ DebugScene* DebugScene::init() {
 	menu.push_back("NormalMap");
 	menu.push_back("DepthBlur");
 	menu.push_back("MotionBlur");
+	menu.push_back("Test");
 	menu.push_back("Exit");
 
 	return this;
 }
 void DebugScene::update() {
-	current -= (InputKeyboard::isKey(DIK_UP, Input::Trigger) && current > 0) ? 1 : 0;
-	current += (InputKeyboard::isKey(DIK_DOWN, Input::Trigger) && current < (int)menu.size()-1) ? 1 : 0;
+	if(InputKeyboard::isKey(DIK_UP, Input::Trigger)) {
+		if(current > 0) {
+			current -= 1;
+		} else {
+			current = (int)menu.size()-1;
+		}
+	}
+	if(InputKeyboard::isKey(DIK_DOWN, Input::Trigger)) {
+		if(current < (int)menu.size()-1) {
+			current += 1;
+		} else {
+			current = 0;
+		}
+	}
 	const int exit_num = menu.size()-1;
 	if(InputKeyboard::isKey(DIK_RETURN, Input::Trigger)) {
 		switch(current) {
@@ -38,6 +52,7 @@ void DebugScene::update() {
 			case 1: SceneManager::setScene((new NormalMapScene)->init()); break;
 			case 2: SceneManager::setScene((new BlurScene)->init()); break;
 			case 3: SceneManager::setScene((new MotionBlurScene)->init()); break;
+			case 4: SceneManager::setScene((new TestScene)->init()); break;
 			default: DestroyWindow(WindowManager::inst().getWnd()); break;
 		}
 	}

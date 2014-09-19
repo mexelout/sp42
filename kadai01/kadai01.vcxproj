@@ -40,6 +40,8 @@
     <ClInclude Include="ShaderPack.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="StaticPlane.h" />
+    <ClInclude Include="StonePavement.h" />
+    <ClInclude Include="TestScene.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="ToonModel.h" />
     <ClInclude Include="ToonScene.h" />
@@ -75,6 +77,8 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="ShaderDevise.cpp" />
     <ClCompile Include="StaticPlane.cpp" />
+    <ClCompile Include="StonePavement.cpp" />
+    <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="ToonModel.cpp" />
     <ClCompile Include="ToonScene.cpp" />

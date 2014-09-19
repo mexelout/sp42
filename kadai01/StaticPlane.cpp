@@ -67,8 +67,6 @@ void StaticPlane::release() {
 }
 
 D3DXMATRIX StaticPlane::getWorld() {
-	D3DXMATRIX world;
-	D3DXMatrixIdentity(&world);
-	return world;
+	return Common::identity;
 }
 

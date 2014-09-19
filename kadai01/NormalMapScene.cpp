@@ -65,7 +65,7 @@ void NormalMapScene::update() {
 
 void NormalMapScene::draw() {
 	auto device = ShaderDevise::device();
-	const D3DXMATRIX& view = Camera::view(), proj = Camera::projection();
+	D3DXMATRIX view = Camera::view(), proj = Camera::projection();
 
 	device->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xff191970, 1.0f, 0 );
 	device->BeginScene();
