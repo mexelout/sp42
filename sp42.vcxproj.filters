@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{a39d9e2e-738c-4e1c-ba13-082faf3b18bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{7a66bd44-e6b5-40c5-ae58-624af9dc2173}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{7dc2cb30-dea7-4901-a96a-5eef766b3972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{0588fb0d-b37e-4f6a-9c5b-0e10655fc267}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{4b7b4b30-100e-4767-adf2-98ace6b6e15c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{3552d260-9b9c-4805-b218-86b7170389c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{dd26bb57-c1ae-4312-aafa-329ea737987a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Input.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="InputKeyboard.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="InputMouse.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="BlurScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthShadowScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="FogScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MotionBlurScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiTexScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalMapScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ToonScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="BlurPlayer.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthShadowPlayer.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ToonModel.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Common.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderDevise.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Cylinder.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GroundMesh.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshField.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticPlane.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="StonePavement.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Input.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="InputKeyboard.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="InputMouse.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="BlurScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthShadowScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="FogScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MotionBlurScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiTexScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalMapScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ToonScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="BlurPlayer.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthShadowPlayer.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ToonModel.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="safe.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderDevise.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderPack.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Cylinder.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GroundMesh.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshField.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticPlane.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="StonePavement.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="blur.fx">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="depth_buffer_shadow.fx">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="fog.fx">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="lambert.fx">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="motion_blur.fx">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="multi_tex.fx">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="normal_map.fx">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="per_pixel_lighting.fx">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="shader.fx">
+      <Filter>Shader</Filter>
+    </None>
+  </ItemGroup>
+</Project>
