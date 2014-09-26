@@ -15,7 +15,6 @@ Sphere* Sphere::init() {
 	auto device = ShaderDevise::device();
 	model = (new Model)->init(device, "models/sphere.x");
 
-
 	return this;
 }
 void Sphere::update() {
@@ -33,7 +32,7 @@ void Sphere::draw() {
 	device->GetMaterial(&tmp_mat);
 
 	for(int i = 0; i < num_mat; i++) {
-		//device->SetMaterial(&mat[i].MatD3D);
+		device->SetMaterial(&mat[i].MatD3D);
 		mesh->DrawSubset(i);
 	}
 

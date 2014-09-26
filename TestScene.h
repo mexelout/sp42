@@ -30,6 +30,7 @@ public:
 	ShaderPack normal_ps;
 
 	ShaderPack lambert_vs;
+	ShaderPack lambert_ps;
 
 	ShaderPack ppl_vs;
 	ShaderPack ppl_ps;

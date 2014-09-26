@@ -29,7 +29,8 @@ TestScene* TestScene::init() {
 	*/
 
 	grid = (new Grid)->init()->setSize(10);
-	//lambert_vs.loadFunc(device, "lambert.fx", "vsLambert", "vs_2_0");
+	lambert_vs.loadFunc(device, "lambert.fx", "vsLambert", "vs_2_0");
+	lambert_ps.loadFunc(device, "lambert.fx", "psLambert", "ps_2_0");
 
 	ppl_vs.loadFunc(device, "per_pixel_lighting.fx", "vsPPL", "vs_2_0");
 	ppl_ps.loadFunc(device, "per_pixel_lighting.fx", "psPPL", "ps_2_0");
@@ -75,7 +76,7 @@ void TestScene::draw() {
 
 	grid->draw();
 
-	if(1) {
+	if(0) {
 		D3DXMATRIX w(sphere->getWorld()), v(Camera::view()), p(Camera::projection()), wvp(w*v*p), inv_mat;
 		ppl_vs.constant_table->SetMatrix(device, "g_world_view_proj", &wvp);
 		D3DXVECTOR3 inv_light3(Common::vec3zero);
@@ -83,13 +84,22 @@ void TestScene::draw() {
 		D3DXVec3TransformNormal(&inv_light3, &ShaderDevise::getLightVec(), &inv_mat);
 		inv_light4 = D3DXVECTOR4(inv_light3, 0);
 		ppl_vs.constant_table->SetVector(device, "g_inv_light_direction", &inv_light4);
+
+		D3DXVECTOR4 mat_dif(0.2f, 1.0f, 0.2f, 1.0f);
+		ppl_vs.constant_table->SetVector(device, "g_material_diffuse", &mat_dif);
+
+		device->SetVertexShader(ppl_vs.vs);
+		device->SetPixelShader(ppl_ps.ps);
+
 		sphere->draw();
 
 		device->SetVertexShader(NULL);
+		device->SetPixelShader(NULL);
 	}
 
-	if(0) {
+	if(1) {
 		device->SetVertexShader(lambert_vs.vs);
+		device->SetPixelShader(lambert_ps.ps);
 		D3DXMATRIX w(sphere->getWorld()), v(Camera::view()), p(Camera::projection()), wvp(w*v*p), inv_mat;
 		lambert_vs.constant_table->SetMatrix(device, "g_world_view_proj", &wvp);
 
@@ -98,6 +108,13 @@ void TestScene::draw() {
 		D3DXVec3TransformNormal(&inv_light3, &ShaderDevise::getLightVec(), &inv_mat);
 		inv_light4 = D3DXVECTOR4(inv_light3, 0);
 		lambert_vs.constant_table->SetVector(device, "g_inv_light_direction", &inv_light4);
+
+		D3DXVECTOR4 mat_dif(0.2f, 1.0f, 0.2f, 1.0f);
+		lambert_vs.constant_table->SetVector(device, "g_material_diffuse", &mat_dif);
+
+		D3DXVECTOR4 inv_camera4;
+		D3DXVec3Transform(&inv_camera4, &Camera::eye(), &inv_mat);
+		lambert_vs.constant_table->SetVector(device, "g_inv_camera_position", &inv_camera4);
 
 		sphere->draw();
 
@@ -151,6 +168,7 @@ void TestScene::release() {
 	normal_vs.release();
 	normal_ps.release();
 	lambert_vs.release();
+	lambert_ps.release();
 	ppl_vs.release();
 	ppl_ps.release();
 }
