@@ -22,15 +22,15 @@ FogScene* FogScene::init() {
 	device->SetRenderState(D3DRS_FOGEND, Common::ftodw(800.0f));
 	device->SetRenderState( D3DRS_FOGVERTEXMODE, D3DFOG_LINEAR );
 	device->SetRenderState( D3DRS_FOGTABLEMODE, D3DFOG_NONE );
-	vs_linear.loadFunc(device, "fog.fx", "vertexShaderFogLinear", "vs_2_0");
-	vs_length.loadFunc(device, "fog.fx", "vertexShaderFogLength", "vs_2_0");
-	vs_height.loadFunc(device, "fog.fx", "vertexShaderFogHeight", "vs_2_0");
+	vs_linear.loadFunc(device, "fog.hlsl", "vertexShaderFogLinear", "vs_2_0");
+	vs_length.loadFunc(device, "fog.hlsl", "vertexShaderFogLength", "vs_2_0");
+	vs_height.loadFunc(device, "fog.hlsl", "vertexShaderFogHeight", "vs_2_0");
 	ground_mesh = (new GroundMesh)->init();
 
 	// toon
 	toon_model = (new ToonModel)->init();
-	toon_cell.loadFunc(device, "shader.fx", "vertexShaderCell", "vs_2_0");
-	toon_line.loadFunc(device, "shader.fx", "vertexShaderLine", "vs_2_0");
+	toon_cell.loadFunc(device, "shader.hlsl", "vertexShaderCell", "vs_2_0");
+	toon_line.loadFunc(device, "shader.hlsl", "vertexShaderLine", "vs_2_0");
 
 	return this;
 }

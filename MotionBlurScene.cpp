@@ -82,8 +82,8 @@ MotionBlurScene* MotionBlurScene::init() {
 	mat.Specular.r = mat.Specular.g = mat.Specular.b = mat.Specular.a = 0.2f;
 	device->SetMaterial(&mat);
 
-	vertex_shader.loadFunc(device, "motion_blur.fx", "vertexShaderMotionBlur", "vs_2_0");
-	pixel_shader.loadFunc(device, "motion_blur.fx", "pixelShaderMotionBlur", "ps_2_0");
+	vertex_shader.loadFunc(device, "motion_blur.hlsl", "vertexShaderMotionBlur", "vs_2_0");
+	pixel_shader.loadFunc(device, "motion_blur.hlsl", "pixelShaderMotionBlur", "ps_2_0");
 
 	Camera::setEye(D3DXVECTOR3(30, -43, 0));
 	Camera::setAt(D3DXVECTOR3(0, -50, 0));

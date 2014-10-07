@@ -14,8 +14,8 @@ ToonScene::~ToonScene(void) {
 ToonScene* ToonScene::init() {
 	LPDIRECT3DDEVICE9 device = ShaderDevise::device();
 
-	toon_cell.loadFunc(device, "shader.fx", "vertexShaderCell", "vs_2_0");
-	toon_line.loadFunc(device, "shader.fx", "vertexShaderLine", "vs_2_0");
+	toon_cell.loadFunc(device, "shader.hlsl", "vertexShaderCell", "vs_2_0");
+	toon_line.loadFunc(device, "shader.hlsl", "vertexShaderLine", "vs_2_0");
 
 	D3DXHANDLE g_world_view_projection = toon_cell.constant_table->GetConstantByName(NULL, "g_world_view_projection");
 	D3DXHANDLE g_light_direction = toon_cell.constant_table->GetConstantByName(NULL, "g_light_direction");

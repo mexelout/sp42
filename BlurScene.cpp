@@ -97,11 +97,11 @@ BlurScene* BlurScene::init() {
 	device->GetRenderTarget(0, &back_buffer);
 	device->GetDepthStencilSurface(&z_buffer);
 
-	blur_vertical.loadFunc(device, "blur.fx", "pixelShaderBlurX", "ps_2_0");
-	blur_horizontal.loadFunc(device, "blur.fx", "pixelShaderBlurY", "ps_2_0");
-	depth_vertex.loadFunc(device, "depth_buffer_shadow.fx", "vertexShadowDepth", "vs_2_0");
-	depth_pixel.loadFunc(device, "depth_buffer_shadow.fx", "pixelShaderDepth", "ps_2_0");
-	multi_tex.loadFunc(device, "multi_tex.fx", "pixelShaderFocus", "ps_2_0");
+	blur_vertical.loadFunc(device, "blur.hlsl", "pixelShaderBlurX", "ps_2_0");
+	blur_horizontal.loadFunc(device, "blur.hlsl", "pixelShaderBlurY", "ps_2_0");
+	depth_vertex.loadFunc(device, "depth_buffer_shadow.hlsl", "vertexShadowDepth", "vs_2_0");
+	depth_pixel.loadFunc(device, "depth_buffer_shadow.hlsl", "pixelShaderDepth", "ps_2_0");
+	multi_tex.loadFunc(device, "multi_tex.hlsl", "pixelShaderFocus", "ps_2_0");
 
 	expf(-5);
 

@@ -9,7 +9,9 @@
 TextureManager::TextureManager() {
 	idx_apply = 0;
 	TEXTURE_DATA d;
-	memset(&d, 0, sizeof(TEXTURE_DATA));
+	d.filename = "";
+	memset(&d.info, 0, sizeof(D3DXIMAGE_INFO));
+	d.texture = NULL;
 	data.push_back(d);
 }
 /* デストラクタ*/
@@ -39,6 +41,7 @@ UINT TextureManager::loadTexture(std::string filename, LPDIRECT3DDEVICE9 device)
 	// ファイルの有無
 	if(SUCCEEDED(hr)) {
 		// 有るとわかったら色々保存
+		d.filename = filename;
 
 		// テクスチャバッファ読み込み
 		D3DXCreateTextureFromFileEx(device, filename.c_str(), d.info.Width, d.info.Height, 1, 0, D3DFMT_A8B8G8R8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, 0x00000000, NULL, NULL, &d.texture);

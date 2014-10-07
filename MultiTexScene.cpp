@@ -45,7 +45,7 @@ MultiTexScene* MultiTexScene::init() {
 	LPD3DXBUFFER code = NULL;
 	LPD3DXBUFFER error = NULL;
 
-	D3DXCompileShaderFromFile("multi_tex.fx", NULL, NULL,
+	D3DXCompileShaderFromFile("multi_tex.hlsl", NULL, NULL,
 							"pixelShaderMulthTex", "ps_2_0", 0,
 							&code, &error, &ps_ct);
 

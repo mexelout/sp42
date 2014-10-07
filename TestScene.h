@@ -24,12 +24,15 @@ public:
 
 	Sphere* sphere;
 
+	D3DXVECTOR3 light_vec[2];
+
 	D3DXVECTOR3 camera_rot;
 
 	ShaderPack normal_vs;
 	ShaderPack normal_ps;
 
 	ShaderPack lambert_vs;
+	ShaderPack lambert_ps;
 
 	ShaderPack ppl_vs;
 	ShaderPack ppl_ps;

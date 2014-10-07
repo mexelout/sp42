@@ -1,6 +1,8 @@
 float4x4 g_world_view_proj;
 float4 g_inv_light_direction;
 
+float4 g_material_diffuse;
+
 struct VS_IN {
 	float4 pos : POSITION;
 	float4 nor : NORMAL;
@@ -18,8 +20,9 @@ VS_OUT vsPPL(VS_IN _in) {
 	VS_OUT _out = (VS_OUT)0;
 	_out.pos = mul(_in.pos, g_world_view_proj);
 	_out.uv = _in.uv;
-	_out.dif = 1;
+	_out.dif = g_material_diffuse;
 	_out.nor = _in.nor;
+
 
 	return _out;
 }
