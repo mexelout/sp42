@@ -24,6 +24,8 @@ public:
 
 	Sphere* sphere;
 
+	D3DXVECTOR3 light_vec[2];
+
 	D3DXVECTOR3 camera_rot;
 
 	ShaderPack normal_vs;

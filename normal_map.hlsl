@@ -51,7 +51,6 @@ VS_OUT vsNormalMap(float4 pos:POSITION, float3 tangent:TANGENT, float3 binormal:
 	return _out;
 }
 
-/*
 float4 psNormalMap(float2 uv:TEXCOORD0, float3 light_tangent_direct: TEXCOORD3, float3 eye: TEXCOORD4) : COLOR0 {
 	eye = normalize(eye);
 	float height = (tex2D(height_sampler, uv).x - 0.5f) * 0.2f;
@@ -74,12 +73,13 @@ float4 psNormalMap(float2 uv:TEXCOORD0, float3 light_tangent_direct: TEXCOORD3, 
 	float3 half = eye + light_tangent_direct;
 	half = -normalize( half );
 	float hnd = dot( half, normal_vec );
-	//diff += pow( hnd, 100 ) * 0.3f;
+	diff += pow(abs(hnd), 100 ) * 0.3f;
 
 	return diff;
 }
-*/
 
+
+/*
 void psNormalMap(in float2 inTexcoord:TEXCOORD0, in float3 inLight:TEXCOORD3, in float3 inEye:TEXCOORD4, out float4 outDiffuse:COLOR, out float outDepth:DEPTH) {
 	inEye = normalize( inEye );
 	inLight = normalize( inLight );
@@ -124,3 +124,4 @@ void psNormalMap(in float2 inTexcoord:TEXCOORD0, in float3 inLight:TEXCOORD3, in
 	outDiffuse.a = 1.0f;
 	outDepth = 0.0f;
 }
+*/

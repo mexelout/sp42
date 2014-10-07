@@ -15,7 +15,7 @@ Cylinder* Cylinder::init() {
 
 	LPD3DXBUFFER code;
 	LPD3DXBUFFER error;
-	D3DXCompileShaderFromFile("shader.fx", NULL, NULL,
+	D3DXCompileShaderFromFile("shader.hlsl", NULL, NULL,
 								"vertexShaderTexture", "vs_2_0", 0,
 								&code, &error, &vs_constant_table);
 
@@ -30,7 +30,7 @@ Cylinder* Cylinder::init() {
 
 	code->Release();
 
-	D3DXCompileShaderFromFile("shader.fx", NULL, NULL,
+	D3DXCompileShaderFromFile("shader.hlsl", NULL, NULL,
 								"pixelShaderTexture", "ps_2_0", 0,
 								&code, &error, &ps_constant_table);
 

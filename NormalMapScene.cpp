@@ -20,8 +20,8 @@ NormalMapScene* NormalMapScene::init() {
 	box = (new Box)->init();
 	grid = (new Grid)->init()->setSize(10);
 
-	normal_vs.loadFunc(device, "normal_map.fx", "vsNormalMap", "vs_3_0");
-	normal_ps.loadFunc(device, "normal_map.fx", "psNormalMap", "ps_3_0");
+	normal_vs.loadFunc(device, "normal_map.hlsl", "vsNormalMap", "vs_3_0");
+	normal_ps.loadFunc(device, "normal_map.hlsl", "psNormalMap", "ps_3_0");
 	return this;
 }
 

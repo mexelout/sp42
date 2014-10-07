@@ -159,15 +159,15 @@
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="blur.fx" />
-    <None Include="depth_buffer_shadow.fx" />
-    <None Include="fog.fx" />
-    <None Include="lambert.fx" />
-    <None Include="motion_blur.fx" />
-    <None Include="multi_tex.fx" />
-    <None Include="normal_map.fx" />
-    <None Include="per_pixel_lighting.fx" />
-    <None Include="shader.fx" />
+    <None Include="blur.hlsl" />
+    <None Include="depth_buffer_shadow.hlsl" />
+    <None Include="fog.hlsl" />
+    <None Include="lambert.hlsl" />
+    <None Include="motion_blur.hlsl" />
+    <None Include="multi_tex.hlsl" />
+    <None Include="normal_map.hlsl" />
+    <None Include="per_pixel_lighting.hlsl" />
+    <None Include="shader.hlsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

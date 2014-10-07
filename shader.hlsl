@@ -45,6 +45,17 @@ void vertexShaderShadow(in float4 inPosition: POSITION, in float4 inNormal: NORM
 	outTex.y = (g_player_position.z - inPosition.z) * 0.5f;
 }
 
+
+
+
+
+
+
+
+
+
+
+
 void vertexShaderCell(in float4 inPosition: POSITION, in float4 inNormal: NORMAL, out float4 outPosition: POSITION, out float4 outDiff: COLOR0, in float2 inTex : TEXCOORD0, out float2 outTex : TEXCOORD0) {
 	outPosition = mul(inPosition, g_world_view_projection);
 	outDiff = g_material_diffuse;
@@ -63,6 +74,15 @@ void vertexShaderLine(in float4 inPosition: POSITION, in float4 inNormal: NORMAL
 	outTex.x = 0.5f;
 	outTex.y = 0.5f;
 }
+
+
+
+
+
+
+
+
+
 
 void vertexShaderShadowVol(in float4 inPosition: POSITION, in float4 inNormal: NORMAL, out float4 outPosition: POSITION, in float2 inTex : TEXCOORD0, out float2 outTex : TEXCOORD0) {
 /*

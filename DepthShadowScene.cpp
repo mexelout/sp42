@@ -74,10 +74,10 @@ DepthShadowScene* DepthShadowScene::init() {
 
 	InputMouse::hideCursor();
 
-	depth_vs.loadFunc(device, "depth_buffer_shadow.fx", "vertexShadowDepth", "vs_2_0");
-	depth_ps.loadFunc(device, "depth_buffer_shadow.fx", "pixelShaderDepth", "ps_2_0");
-	depth_shadow_vs.loadFunc(device, "depth_buffer_shadow.fx", "vertexShaderDepthShadow", "vs_2_0");
-	depth_shadow_vs.loadFunc(device, "depth_buffer_shadow.fx", "pixelShaderDepthShadow", "ps_2_0");
+	depth_vs.loadFunc(device, "depth_buffer_shadow.hlsl", "vertexShadowDepth", "vs_2_0");
+	depth_ps.loadFunc(device, "depth_buffer_shadow.hlsl", "pixelShaderDepth", "ps_2_0");
+	depth_shadow_vs.loadFunc(device, "depth_buffer_shadow.hlsl", "vertexShaderDepthShadow", "vs_2_0");
+	depth_shadow_vs.loadFunc(device, "depth_buffer_shadow.hlsl", "pixelShaderDepthShadow", "ps_2_0");
 
 	D3DXHANDLE g_light_view = depth_vs.constant_table->GetConstantByName(NULL, "g_light_view");
 	D3DXHANDLE g_world = depth_vs.constant_table->GetConstantByName(NULL, "g_world");

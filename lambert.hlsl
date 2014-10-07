@@ -1,5 +1,5 @@
 float4x4 g_world_view_proj;
-float4 g_inv_light_direction;
+float4 g_inv_light_direction[2];
 float4 g_material_diffuse;
 float4 g_inv_camera_position;
 
@@ -29,7 +29,11 @@ VS_OUT vsLambert(VS_IN _in) {
 	VS_OUT _out = (VS_OUT)0;
 
 	_out.pos = mul(_in.pos, g_world_view_proj);
-	_out.dif = dot(_in.nor, g_inv_light_direction) * 0.7f;
+	float light = 0;
+	light = dot(_in.nor, g_inv_light_direction[0]) * 0.7f;
+	_out.dif += max(light, 0.0f);
+	light = dot(_in.nor, g_inv_light_direction[1]) * 0.7f;
+	_out.dif += max(light, 0.0f);
 	_out.dif = max(0.0f, _out.dif);
 	_out.dif = min(1.0f, _out.dif);
 	_out.dif += 0.3f;
@@ -52,10 +56,10 @@ float4 psLambert(PS_IN _in) : COLOR0 {
 	float4 nor = normalize(_in.nor);
 
 	dif = _in.dif;
-	float4 half_vec = eye + g_inv_light_direction;
-	half_vec = normalize(half_vec);
+	float4 half_vec = eye + g_inv_light_direction[0];
+	half_vec = -normalize(half_vec);
 	float d = (dot(half_vec, nor) + 1) / 2;
-	dif += pow(abs(d), 10) * 0.8f;
+	dif += max(pow(abs(d), 10) * 0.8f, 0.0);
 
 	return dif;
 }

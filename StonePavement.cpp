@@ -31,9 +31,9 @@ StonePavement* StonePavement::init(void) {
 
 	vtx->Unlock();
 
-	D3DXCreateTextureFromFile(device, "textures/wall000.png", &texture);
-	D3DXCreateTextureFromFile(device, "textures/wall000b.png", &normal);
-	D3DXCreateTextureFromFile(device, "textures/wall000h.png", &height_map);
+	D3DXCreateTextureFromFile(device, "textures/stone.jpg", &texture);
+	D3DXCreateTextureFromFile(device, "textures/stonenormal.png", &normal);
+	D3DXCreateTextureFromFile(device, "textures/stonedispacement.jpg", &height_map);
 
 	return this;
 }

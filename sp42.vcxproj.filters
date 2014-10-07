@@ -260,31 +260,31 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="blur.fx">
+    <None Include="normal_map.hlsl">
       <Filter>Shader</Filter>
     </None>
-    <None Include="depth_buffer_shadow.fx">
+    <None Include="per_pixel_lighting.hlsl">
       <Filter>Shader</Filter>
     </None>
-    <None Include="fog.fx">
+    <None Include="shader.hlsl">
       <Filter>Shader</Filter>
     </None>
-    <None Include="lambert.fx">
+    <None Include="multi_tex.hlsl">
       <Filter>Shader</Filter>
     </None>
-    <None Include="motion_blur.fx">
+    <None Include="motion_blur.hlsl">
       <Filter>Shader</Filter>
     </None>
-    <None Include="multi_tex.fx">
+    <None Include="lambert.hlsl">
       <Filter>Shader</Filter>
     </None>
-    <None Include="normal_map.fx">
+    <None Include="fog.hlsl">
       <Filter>Shader</Filter>
     </None>
-    <None Include="per_pixel_lighting.fx">
+    <None Include="depth_buffer_shadow.hlsl">
       <Filter>Shader</Filter>
     </None>
-    <None Include="shader.fx">
+    <None Include="blur.hlsl">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>
