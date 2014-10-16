@@ -139,7 +139,6 @@ void FogScene::draw() {
 	device->SetRenderState(D3DRS_FOGENABLE, true);
 
 	device->EndScene();
-	device->Present( NULL, NULL, NULL, NULL );
 }
 void FogScene::release() {
 	SAFE_RELEASE_DELETE(ground_mesh);

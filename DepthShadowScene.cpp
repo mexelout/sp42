@@ -209,9 +209,6 @@ void DepthShadowScene::draw() {
 	}
 
 	device->EndScene();
-	device->Present( NULL, NULL, NULL, NULL );
-
-
 }
 void DepthShadowScene::release() {
 	depth_vs.release();

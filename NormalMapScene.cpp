@@ -126,7 +126,6 @@ void NormalMapScene::draw() {
 
 	device->EndScene();
 
-	device->Present( NULL, NULL, NULL, NULL );
 }
 
 void NormalMapScene::release() {

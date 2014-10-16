@@ -7,6 +7,8 @@
 #include "WindowManager.h"
 #include "BlurScene.h"
 #include "MotionBlurScene.h"
+#include "ShaderDevise.h"
+#include "PointLightScene.h"
 
 Scene* SceneManager::scene;
 
@@ -21,7 +23,7 @@ void SceneManager::init() {
 #ifdef _DEBUG
 	scene = (new DebugScene)->init();
 #else
-	scene = (new MotionBlurScene)->init();
+	scene = (new PointLightScene)->init();
 #endif
 }
 void SceneManager::update() {
@@ -36,6 +38,9 @@ void SceneManager::update() {
 }
 void SceneManager::draw() {
 	scene->draw();
+
+	auto device = ShaderDevise::device();
+	device->Present(NULL, NULL, NULL, NULL);
 }
 void SceneManager::release() {
 	SAFE_RELEASE_DELETE(scene);

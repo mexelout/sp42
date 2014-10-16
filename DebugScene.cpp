@@ -10,6 +10,7 @@
 #include "NormalMapScene.h"
 #include "BlurScene.h"
 #include "MotionBlurScene.h"
+#include "PointLightScene.h"
 #include "TestScene.h"
 
 DebugScene::DebugScene(void) {
@@ -25,6 +26,7 @@ DebugScene* DebugScene::init() {
 	menu.push_back("NormalMap");
 	menu.push_back("DepthBlur");
 	menu.push_back("MotionBlur");
+	menu.push_back("PointLight");
 	menu.push_back("Test");
 	menu.push_back("Exit");
 
@@ -52,7 +54,8 @@ void DebugScene::update() {
 			case 1: SceneManager::setScene((new NormalMapScene)->init()); break;
 			case 2: SceneManager::setScene((new BlurScene)->init()); break;
 			case 3: SceneManager::setScene((new MotionBlurScene)->init()); break;
-			case 4: SceneManager::setScene((new TestScene)->init()); break;
+			case 4: SceneManager::setScene((new PointLightScene)->init()); break;
+			case 5: SceneManager::setScene((new TestScene)->init()); break;
 			default: DestroyWindow(WindowManager::inst().getWnd()); break;
 		}
 	}
@@ -67,7 +70,6 @@ void DebugScene::draw() {
 	}
 
 	device->EndScene();
-	device->Present( NULL, NULL, NULL, NULL );
 }
 void DebugScene::release() {
 	DebugScene::~DebugScene();

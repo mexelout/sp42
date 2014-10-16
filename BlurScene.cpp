@@ -334,8 +334,6 @@ void BlurScene::draw() {
 	device->SetRenderState(D3DRS_LIGHTING, TRUE);
 
 	device->EndScene();
-
-	device->Present( NULL, NULL, NULL, NULL );
 }
 void BlurScene::release() {
 	SAFE_RELEASE_DELETE(player);

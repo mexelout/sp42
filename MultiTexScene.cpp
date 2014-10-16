@@ -92,7 +92,6 @@ void MultiTexScene::draw() {
 
 	device->EndScene();
 
-	device->Present( NULL, NULL, NULL, NULL );
 }
 
 void MultiTexScene::release() {

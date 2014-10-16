@@ -186,7 +186,6 @@ void MotionBlurScene::draw() {
 	ShaderDevise::drawText(Common::debug("ESC アプリケーション終了").c_str());
 
 	device->EndScene();
-	device->Present( NULL, NULL, NULL, NULL );
 }
 void MotionBlurScene::release() {
 	vertex_shader.release();

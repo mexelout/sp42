@@ -86,7 +86,7 @@ void TestScene::draw() {
 	device->SetTransform(D3DTS_VIEW, &view);
 	device->SetTransform(D3DTS_PROJECTION, &proj);
 
-	grid->draw();
+	//grid->draw();
 
 	if(0) {
 		D3DXMATRIX w(sphere->getWorld()), v(Camera::view()), p(Camera::projection()), wvp(w*v*p), inv_mat;
@@ -184,7 +184,6 @@ void TestScene::draw() {
 
 	device->EndScene();
 
-	device->Present( NULL, NULL, NULL, NULL );
 }
 void TestScene::release() {
 	SAFE_RELEASE_DELETE(stone_pavement);

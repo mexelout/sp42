@@ -136,6 +136,9 @@
     <ClCompile Include="StonePavement.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="PointLightScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Input.h">
@@ -258,6 +261,9 @@
     <ClInclude Include="StonePavement.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="PointLightScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="normal_map.hlsl">
@@ -285,6 +291,9 @@
       <Filter>Shader</Filter>
     </None>
     <None Include="blur.hlsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="point_light.hlsl">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>
