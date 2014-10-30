@@ -139,6 +139,9 @@
     <ClCompile Include="PointLightScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="DeferredScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Input.h">
@@ -264,6 +267,9 @@
     <ClInclude Include="PointLightScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="DeferredScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="normal_map.hlsl">
@@ -294,6 +300,9 @@
       <Filter>Shader</Filter>
     </None>
     <None Include="point_light.hlsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="deferred.hlsl">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

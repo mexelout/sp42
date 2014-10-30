@@ -41,6 +41,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+    <EmbedManifest>false</EmbedManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -86,6 +87,7 @@
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="Cylinder.cpp" />
     <ClCompile Include="DebugScene.cpp" />
+    <ClCompile Include="DeferredScene.cpp" />
     <ClCompile Include="DepthShadowPlayer.cpp" />
     <ClCompile Include="DepthShadowScene.cpp" />
     <ClCompile Include="FogScene.cpp" />
@@ -125,6 +127,7 @@
     <ClInclude Include="Common.h" />
     <ClInclude Include="Cylinder.h" />
     <ClInclude Include="DebugScene.h" />
+    <ClInclude Include="DeferredScene.h" />
     <ClInclude Include="DepthShadowPlayer.h" />
     <ClInclude Include="DepthShadowScene.h" />
     <ClInclude Include="FogScene.h" />
@@ -162,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="blur.hlsl" />
+    <None Include="deferred.hlsl" />
     <None Include="depth_buffer_shadow.hlsl" />
     <None Include="fog.hlsl" />
     <None Include="lambert.hlsl" />

@@ -36,7 +36,8 @@ void Sphere::draw() {
 		mesh->DrawSubset(i);
 	}
 
-	device->SetMaterial(&tmp_mat);}
+	device->SetMaterial(&tmp_mat);
+}
 void Sphere::release() {
 	SAFE_RELEASE_DELETE(model);
 }
