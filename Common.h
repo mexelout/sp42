@@ -28,3 +28,4 @@ private:
 #define SAFE_RELEASE_DELETE(p) {if(p){p->release();delete p;p=NULL;}}
 #define SAFE_DELETE(p) {if(p) {delete p; p=NULL;}}
 #define SAFE_DELETE_ARRAY(p) {if(p){delete[] p;p=NULL;}}
+#define SAFE_NULL_RETURN(p) {if(p==NULL){release();delete this; return NULL;}}

@@ -82,6 +82,7 @@
   <ItemGroup>
     <ClCompile Include="BlurPlayer.cpp" />
     <ClCompile Include="BlurScene.cpp" />
+    <ClCompile Include="Bokoboko.cpp" />
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Common.cpp" />
@@ -96,13 +97,17 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="InputKeyboard.cpp" />
     <ClCompile Include="InputMouse.cpp" />
+    <ClCompile Include="Kadai08Scene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="MeshField.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="MotionBlurScene.cpp" />
+    <ClCompile Include="MSAAScene.cpp" />
     <ClCompile Include="MultiTexScene.cpp" />
     <ClCompile Include="NormalMapScene.cpp" />
+    <ClCompile Include="OwnTexture.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PointLightScene.cpp" />
@@ -110,6 +115,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="ShaderDevise.cpp" />
     <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="SSAOScene.cpp" />
     <ClCompile Include="StaticPlane.cpp" />
     <ClCompile Include="StonePavement.cpp" />
     <ClCompile Include="TestScene.cpp" />
@@ -118,10 +124,12 @@
     <ClCompile Include="ToonModel.cpp" />
     <ClCompile Include="ToonScene.cpp" />
     <ClCompile Include="WindowManager.cpp" />
+    <ClCompile Include="Wood.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlurPlayer.h" />
     <ClInclude Include="BlurScene.h" />
+    <ClInclude Include="Bokoboko.h" />
     <ClInclude Include="Box.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Common.h" />
@@ -136,13 +144,18 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="InputKeyboard.h" />
     <ClInclude Include="InputMouse.h" />
+    <ClInclude Include="Kadai08Scene.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="MeshField.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="ModelManager.h" />
     <ClInclude Include="MotionBlurScene.h" />
+    <ClInclude Include="MSAAScene.h" />
     <ClInclude Include="MultiTexScene.h" />
+    <ClInclude Include="MutableArray.hpp" />
     <ClInclude Include="NormalMapScene.h" />
+    <ClInclude Include="OwnTexture.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PointLightScene.h" />
@@ -153,6 +166,7 @@
     <ClInclude Include="ShaderPack.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Sphere.h" />
+    <ClInclude Include="SSAOScene.h" />
     <ClInclude Include="StaticPlane.h" />
     <ClInclude Include="StonePavement.h" />
     <ClInclude Include="TestScene.h" />
@@ -162,6 +176,7 @@
     <ClInclude Include="ToonScene.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="WindowManager.h" />
+    <ClInclude Include="Wood.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="blur.hlsl" />
@@ -170,11 +185,14 @@
     <None Include="fog.hlsl" />
     <None Include="lambert.hlsl" />
     <None Include="motion_blur.hlsl" />
+    <None Include="msaa.hlsl" />
     <None Include="multi_tex.hlsl" />
     <None Include="normal_map.hlsl" />
     <None Include="per_pixel_lighting.hlsl" />
     <None Include="point_light.hlsl" />
     <None Include="shader.hlsl" />
+    <None Include="spotlight+parallax.hlsl" />
+    <None Include="ssao.hlsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -129,7 +129,7 @@ void DepthShadowScene::draw() {
 
 		D3DXMatrixLookAtLH(
 			&view,
-			&D3DXVECTOR3(ShaderDevise::getLightVec()*-20),
+			&D3DXVECTOR3(D3DXVECTOR3(ShaderDevise::getLight(0).Direction)*-20),
 			&D3DXVECTOR3(0, 0, 0),
 			&D3DXVECTOR3(0, 1, 0)
 		);

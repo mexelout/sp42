@@ -32,7 +32,7 @@ const D3DXMATRIX& Camera::view() {
 	D3DXMatrixLookAtLH(
 		&_view,
 		&_eye,
-		&_at,
+		&_at, 
 		&_up
 	);
 
@@ -64,4 +64,8 @@ D3DXVECTOR3 Camera::at() {
 
 D3DXVECTOR3 Camera::dir() {
 	return (_at - _eye);
+}
+
+void Camera::setProjMatrix(D3DXMATRIX& proj) {
+	_projection = proj;
 }

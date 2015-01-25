@@ -15,6 +15,7 @@ public:
 	static D3DXVECTOR3 eye();
 	static D3DXVECTOR3 at();
 	static D3DXVECTOR3 dir();
+	static void setProjMatrix(D3DXMATRIX& proj);
 private:
 	static D3DXVECTOR3 _eye, _at, _up;
 	static D3DXMATRIX _view, _projection, _ortho;

@@ -10,20 +10,6 @@
 #include "Sphere.h"
 #include "TextureManager.h"
 
-OwnTexture::OwnTexture() {
-	tex = NULL;
-	sur = NULL;
-}
-OwnTexture::~OwnTexture() {
-	SAFE_RELEASE(tex);
-	SAFE_RELEASE(sur);
-}
-void OwnTexture::createTexture(UINT width, UINT height, UINT levels,DWORD usage, D3DFORMAT format, D3DPOOL pool) {
-	auto device = ShaderDevise::device();
-	device->CreateTexture(width, height, levels, usage, format, pool, &tex, NULL);
-	tex->GetSurfaceLevel(0, &sur);
-}
-
 DeferredScene::DeferredScene() {
 	m = NULL;
 	camera_rot = Common::vec3zero;
@@ -36,7 +22,7 @@ DeferredScene* DeferredScene::init() {
 	diffuse.createTexture((UINT)Common::window_width, (UINT)Common::window_height, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A16B16G16R16F, D3DPOOL_DEFAULT);
 	normal.createTexture((UINT)Common::window_width, (UINT)Common::window_height, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A16B16G16R16F, D3DPOOL_DEFAULT);
 
-	m = (new Sphere)->init();
+	m = (new Box)->init();
 	g = (new Grid)->init()->setSize(10);
 	camera_rot = D3DXVECTOR3((float)M_PI_4/3, (float)D3DX_PI*0.7f, 6);
 
@@ -71,7 +57,7 @@ void DeferredScene::update() {
 		world *= rot;
 		D3DXMatrixRotationAxis(&rot, &left, (InputMouse::move().y/300.0f));
 		world *= rot;
-		//m->setWorld(world); // for box
+		m->setWorld(world); // for box
 	}
 	if(InputMouse::btn(InputMouse::Right, Input::Press)) {
 		camera_rot.y += (InputMouse::move().x/300.0f);

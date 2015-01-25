@@ -84,7 +84,7 @@ void FogScene::draw() {
 	//Camera::setAt(at);
 
 	D3DXMATRIX world(Common::identity), view(Camera::view()), proj(Camera::projection()), world_view_proj(world*view*proj);
-	D3DXVECTOR3 light_vec3(ShaderDevise::getLightVec()), eye3(Camera::eye());
+	D3DXVECTOR3 light_vec3(ShaderDevise::getLight(0).Direction), eye3(Camera::eye());
 	D3DXVECTOR4 light_vec4(light_vec3.x, light_vec3.y, light_vec3.z, 1), eye4(eye3.x, eye3.y, eye3.z, 1);
 
 	static float fog_end = 300;

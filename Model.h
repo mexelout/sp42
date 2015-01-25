@@ -23,7 +23,7 @@ public:
 	std::vector<LPDIRECT3DTEXTURE9> textures();
 	void cloneMesh(LPDIRECT3DDEVICE9 device, const D3DVERTEXELEMENT9 vertex_decl[]);
 	void setMesh(LPD3DXMESH mesh);
-private:
+protected:
 	LPDIRECT3DVERTEXBUFFER9 _vertexes;
 	LPDIRECT3DINDEXBUFFER9 _indices;
 	LPD3DXMESH _mesh;

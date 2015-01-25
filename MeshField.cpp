@@ -252,7 +252,7 @@ void MeshField::setMeshVertex(std::vector<float> vertices) {
 	for(int i = 0; i < vertical; i++) {
 		for(int j = 0; j < horizontal; j++) {
 			D3DXVECTOR3 pos = D3DXVECTOR3(j * cell_size - cell_size * (horizontal_cell_num/2), vertices[i*horizontal+j], -i * cell_size + cell_size * (vertical_cell_num/2));
-			vtx_data[i*horizontal+j] = CUSTOMVERTEX(pos.x, pos.y, pos.z, 0, 1, 0, color, (float)j, (float)i);
+			vtx_data[i*horizontal+j] = CUSTOMVERTEX(pos.x, pos.y, pos.z, 0, 1, 0, color, (float)j*5, (float)i*5);
 			cnt++;
 			if(size < cnt) {
 				break;

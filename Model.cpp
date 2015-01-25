@@ -36,7 +36,6 @@ Model* Model::init(LPDIRECT3DDEVICE9 device, std::string filename) {
 	D3DXMATERIAL *material = ( D3DXMATERIAL* )( _materials -> GetBufferPointer() );
 	for(int i = 0; i < _num_materials; i++) {
 		LPDIRECT3DTEXTURE9 tex = NULL;
-		material[i].MatD3D.Ambient = material[i].MatD3D.Diffuse;
 		if(material[i].pTextureFilename) {
 			D3DXCreateTextureFromFile(device, material[i].pTextureFilename, &tex);
 		} else {

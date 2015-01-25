@@ -67,7 +67,7 @@ void Player::updateAction() {
 	if(is_down_key) {
 		float s = sinf(mv_angle), c = cosf(mv_angle);
 		float x = dir.x * c - dir.z * s, z = dir.x * s + dir.z * c;
-		float spd = (InputKeyboard::isKey(DIK_LSHIFT, Input::Press)) ? 0.8f : 0.2f;
+		float spd = (InputKeyboard::isKey(DIK_LSHIFT, Input::Press)) ? 0.4f : 0.1f;
 		_pos.x += x*spd;
 		_pos.z += z*spd;
 		float d = D3DXVec3Dot(&D3DXVECTOR3(1, 0, 0), &D3DXVECTOR3(x, 0, z));

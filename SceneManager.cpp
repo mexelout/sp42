@@ -9,6 +9,7 @@
 #include "MotionBlurScene.h"
 #include "ShaderDevise.h"
 #include "PointLightScene.h"
+#include "Kadai08Scene.h"
 
 Scene* SceneManager::scene;
 
@@ -23,7 +24,7 @@ void SceneManager::init() {
 #ifdef _DEBUG
 	scene = (new DebugScene)->init();
 #else
-	scene = (new PointLightScene)->init();
+	scene = (new Kadai08Scene)->init();
 #endif
 }
 void SceneManager::update() {
@@ -46,7 +47,9 @@ void SceneManager::release() {
 	SAFE_RELEASE_DELETE(scene);
 }
 void SceneManager::setScene(Scene* scene) {
-	SAFE_RELEASE_DELETE(SceneManager::scene);
-	SceneManager::scene = scene;
+	if(scene) {
+		SAFE_RELEASE_DELETE(SceneManager::scene);
+		SceneManager::scene = scene;
+	}
 }
 

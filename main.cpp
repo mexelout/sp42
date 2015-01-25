@@ -18,6 +18,7 @@
 #include "DebugScene.h"
 #include "SceneManager.h"
 #include "WindowManager.h"
+#include "ModelManager.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	switch(msg){
@@ -54,7 +55,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	wm.setInst(hInstance);
 	wm.setWnd(hWnd);
 
-	ShaderDevise* sd = (new ShaderDevise())->init(w, h, hWnd);
+	ShaderDevise::init(w, h, hWnd);
 
 	ShowWindow(hWnd, nCmdShow);
 	Camera::init();
@@ -104,9 +105,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 
 	} while(msg.message != WM_QUIT);
 
+	ModelManager::release();
 	SceneManager::release();
 	Input::release();
-	SAFE_RELEASE_DELETE(sd);
+	ShaderDevise::release();
 
 	return 0;
 }

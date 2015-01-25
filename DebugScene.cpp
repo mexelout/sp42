@@ -13,6 +13,9 @@
 #include "PointLightScene.h"
 #include "TestScene.h"
 #include "DeferredScene.h"
+#include "SSAOScene.h"
+#include "MSAAScene.h"
+#include "Kadai08Scene.h"
 
 DebugScene::DebugScene(void) {
 	current = 0;
@@ -29,6 +32,9 @@ DebugScene* DebugScene::init() {
 	menu.push_back("MotionBlur");
 	menu.push_back("PointLight");
 	menu.push_back("Deferred");
+	menu.push_back("SSAO");
+	menu.push_back("MSAA");
+	menu.push_back("Kadai08");
 	menu.push_back("Test");
 	menu.push_back("Exit");
 
@@ -58,7 +64,10 @@ void DebugScene::update() {
 			case 3: SceneManager::setScene((new MotionBlurScene)->init()); break;
 			case 4: SceneManager::setScene((new PointLightScene)->init()); break;
 			case 5: SceneManager::setScene((new DeferredScene)->init()); break;
-			case 6: SceneManager::setScene((new TestScene)->init()); break;
+			case 6: SceneManager::setScene((new SSAOScene)->init()); break;
+			case 7: SceneManager::setScene((new MSAAScene)->init()); break;
+			case 8: SceneManager::setScene((new Kadai08Scene)->init()); break;
+			case 9: SceneManager::setScene((new TestScene)->init()); break;
 			default: DestroyWindow(WindowManager::inst().getWnd()); break;
 		}
 	}

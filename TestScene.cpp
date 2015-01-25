@@ -91,9 +91,10 @@ void TestScene::draw() {
 	if(0) {
 		D3DXMATRIX w(sphere->getWorld()), v(Camera::view()), p(Camera::projection()), wvp(w*v*p), inv_mat;
 		ppl_vs.constant_table->SetMatrix(device, "g_world_view_proj", &wvp);
+		D3DXVECTOR3 light_vec(ShaderDevise::getLight(0).Direction);
 		D3DXVECTOR3 inv_light3(Common::vec3zero);
 		D3DXVECTOR4 inv_light4(Common::vec4zero);
-		D3DXVec3TransformNormal(&inv_light3, &ShaderDevise::getLightVec(), &inv_mat);
+		D3DXVec3TransformNormal(&inv_light3, &light_vec, &inv_mat);
 		inv_light4 = D3DXVECTOR4(inv_light3, 0);
 		ppl_vs.constant_table->SetVector(device, "g_inv_light_direction", &inv_light4);
 
@@ -155,9 +156,10 @@ void TestScene::draw() {
 		normal_vs.constant_table->SetMatrix(device, "g_world_view_projection", &D3DXMATRIX(w * v * p));
 		D3DXMatrixInverse(&inv_mat, NULL, &w);
 
+		D3DXVECTOR3 light_vec(ShaderDevise::getLight(0).Direction);
 		D3DXVECTOR3 inv_light3;
 		D3DXVECTOR4 inv_light4;
-		D3DXVec3TransformNormal(&inv_light3, &ShaderDevise::getLightVec(), &inv_mat);
+		D3DXVec3TransformNormal(&inv_light3, &light_vec, &inv_mat);
 		inv_light4 = D3DXVECTOR4(inv_light3, 0);
 		normal_vs.constant_table->SetVector(device, "g_inv_light_direction", &inv_light4);
 

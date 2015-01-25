@@ -142,6 +142,25 @@
     <ClCompile Include="DeferredScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="SSAOScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="OwnTexture.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Bokoboko.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="MSAAScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Kadai08Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Wood.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Input.h">
@@ -270,6 +289,28 @@
     <ClInclude Include="DeferredScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="SSAOScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="OwnTexture.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Bokoboko.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MSAAScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Kadai08Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Wood.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MutableArray.hpp">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="normal_map.hlsl">
@@ -303,6 +344,15 @@
       <Filter>Shader</Filter>
     </None>
     <None Include="deferred.hlsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="ssao.hlsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="msaa.hlsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="spotlight+parallax.hlsl">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

@@ -48,7 +48,7 @@ void ToonModel::draw() {
 	if(shader_pack) {
 		hr = device->SetVertexShader(shader_pack->vs);
 		hr = shader_pack->constant_table->SetMatrix(device, "g_world_view_projection", &wvp);
-		D3DXVECTOR3 lv(ShaderDevise::getLightVec());
+		D3DXVECTOR3 lv(ShaderDevise::getLight(0).Direction);
 		hr = shader_pack->constant_table->SetVector(device, "g_light_direction", &D3DXVECTOR4(lv.x, lv.y, lv.z, 1));
 		hr = shader_pack->constant_table->SetMatrix(device, "g_world", &world);
 	}
